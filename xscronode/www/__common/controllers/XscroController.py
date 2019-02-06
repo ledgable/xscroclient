@@ -37,7 +37,7 @@ class XscroController(NodeController):
 		newcoin_ = extdict()
 		newcoin_["$class"] = XSCRO_RECORDID
 		
-		uid_ = self.uniqueId
+		uid_ = self.randomCode(50, (string.ascii_letters + string.digits))
 	
 		setattrs(newcoin_,
 			uid = uid_,
@@ -101,7 +101,7 @@ class XscroController(NodeController):
 						newcoin_ = extdict()
 						newcoin_["$class"] = XSCRO_RECORDID
 						
-						uid_ = self.uniqueId
+						uid_ = self.randomCode(50, (string.ascii_letters + string.digits))
 
 						setattrs(newcoin_,
 							uid = uid_,
@@ -180,7 +180,7 @@ class XscroController(NodeController):
 						newcoin_ = extdict()
 						newcoin_["$class"] = XSCRO_RECORDID
 
-						uid_ = self.uniqueId
+						uid_ = self.randomCode(50, (string.ascii_letters + string.digits))
 						
 						setattrs(newcoin_,
 							uid = uid_,
@@ -365,7 +365,7 @@ class XscroController(NodeController):
 	# /api/<chainid>/path/<tokenid>
 	# returns the path of the token
 	
-	@endpoint(1, False, True, None, "get", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/enumerate/(?P<tokenid>[0-9a-f][^-&*/\%]*)", "Enumerate path for token")
+	@endpoint(1, False, True, None, "get", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/enumerate/(?P<tokenid>[0-9a-z][^-&*/\%]*)", "Enumerate path for token")
 	def enumeratePathForToken(self, postData=None, appVars=None, chainid="", tokenid="0"):
 		
 		chainid_ = chainid
@@ -504,7 +504,7 @@ class XscroController(NodeController):
 	# /api/<chainid>/buy/<tokenid>/<transid>/<volume>/<recipientid>/<price>
 	# transfer part of a token (defined by tokenid) to another recipient given volume and price
 
-	@endpoint(1, False, True, None, "get", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/buy/(?P<tokenid>[0-9a-f][^-&*/\%]*)/(?P<transid>[0-9a-f][^-&*/\%]*)/(?P<volume>[0-9.][^-&*/\%]*)/(?P<recipientid>[0-9a-z][^-&*/\%]*)/(?P<price>[0-9.][^-&*/\%]*)", "Buy a new token")
+	@endpoint(1, False, True, None, "get", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/buy/(?P<tokenid>[0-9a-z][^-&*/\%]*)/(?P<transid>[0-9a-f][^-&*/\%]*)/(?P<volume>[0-9.][^-&*/\%]*)/(?P<recipientid>[0-9a-z][^-&*/\%]*)/(?P<price>[0-9.][^-&*/\%]*)", "Buy a new token")
 	def transferToken(self, postData=None, appVars=None, chainid="", tokenid=None, transid=None, volume=0.0, recipientid=None, price=0.0):
 		
 		chainid_ = chainid
@@ -527,7 +527,7 @@ class XscroController(NodeController):
 	# /api/<chainid>/destroy/<tokenid>/<volume>
 	# transfer a token to receipient 0 - effectively destorying it
 	
-	@endpoint(1, False, True, None, "get", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/destroy/(?P<tokenid>[0-9a-f][^-&*/\%]*)/(?P<transid>[0-9a-f][^-&*/\%]*)/(?P<volume>[0-9.][^-&*/\%]*)", "Destroy a token")
+	@endpoint(1, False, True, None, "get", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/destroy/(?P<tokenid>[0-9a-z][^-&*/\%]*)/(?P<transid>[0-9a-f][^-&*/\%]*)/(?P<volume>[0-9.][^-&*/\%]*)", "Destroy a token")
 	def destroyToken(self, postData=None, appVars=None, chainid="", tokenid=None, transid=None, volume=0.0):
 
 		chainid_ = chainid
@@ -574,7 +574,7 @@ class XscroController(NodeController):
 	# /api/<chainid>/children/<tokenid>
 	# get the child tokens of a specified token
 	
-	@endpoint(1, False, True, None, "get", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/children/(?P<tokenid>[0-9a-f][^-&*/\%]*)", "Get child tokens")
+	@endpoint(1, False, True, None, "get", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/children/(?P<tokenid>[0-9a-z][^-&*/\%]*)", "Get child tokens")
 	def childrenForToken(self, postData=None, appVars=None, chainid="", tokenid=None):
 		
 		chainid_ = chainid
