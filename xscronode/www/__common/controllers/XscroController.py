@@ -441,9 +441,7 @@ class XscroController(NodeController):
 			return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":STATUS_FAIL, "message":("Invalid recipient"), "mode":"notify"})
 
 		transactionid_ = params.id_transaction
-		if (transactionid_ != None):
-			transactionid_ = transactionid_.lower()
-		else:
+		if (transactionid_ == None):
 			return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":STATUS_FAIL, "message":("Invalid transaction-id"), "mode":"notify"})
 
 		traderid_ = params.id_trader
@@ -483,9 +481,7 @@ class XscroController(NodeController):
 			return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":STATUS_FAIL, "message":("Invalid recipient"), "mode":"notify"})
 
 		transactionid_ = params.id_transaction
-		if (transactionid_ != None):
-			transactionid_ = transactionid_.lower()
-		else:
+		if (transactionid_ == None):
 			return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":STATUS_FAIL, "message":("Invalid transaction-id"), "mode":"notify"})
 
 		traderid_ = params.id_trader
@@ -713,7 +709,6 @@ class XscroController(NodeController):
 			
 			chainid_ = chainid.lower()
 			code_ = int(code)
-			transactionid_ = transactionid.lower()
 			xscro_ = ApplicationManager().get("xscro")
 	
 			if (xscro_ != None):
@@ -721,19 +716,19 @@ class XscroController(NodeController):
 					
 					transactions_ = list(xscro_.opentransactions.keys())
 	
-					if (transactionid_ in transactions_):
+					if (transactionid in transactions_):
 						
 						newack_ = extdict()
 						newack_["$class"] = XSCRO_ACKID
 
 						setattrs(newack_,
-							uid = transactionid_,
+							uid = transactionid,
 							ack = code_
 							)
 
 						shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, [newack_])
 						
-						return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":STATUS_OK, "chainid":chainid_, "transactionid":transactionid_})
+						return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":STATUS_OK, "chainid":chainid_, "transactionid":transactionid})
 
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":STATUS_FAIL, "reason":"no such token"})
 
