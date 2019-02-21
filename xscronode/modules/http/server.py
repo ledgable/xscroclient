@@ -783,14 +783,8 @@ class MyHandler(CoreHandler):
 								length_ = int(vars_.contentlength)
 						
 								if (length_ > 0):
-
-									if (vars_.allowcompression):
-										rawData_ = self.rfile.read(length_)
-										postData_ = zlib.decompress(rawData_)
-
-									else:
-										postData_ = self.rfile.read(length_)
-									
+									postData_ = self.rfile.read(length_)
+						
 						module_ = self.CONTROLLERS.controllerForId(routefound_.controller)
 												
 						if (module_ != None):
