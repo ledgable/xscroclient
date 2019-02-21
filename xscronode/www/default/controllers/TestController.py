@@ -24,3 +24,10 @@ class TestController(Controller):
 				
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "message":("Well this worked !! - Received %s" % params), "mode":"messagebox"})
 
+
+	@endpoint(1, False, True, None, "post", "^/callbackwatcher", "check watcher works")
+	def callBackWatcher(self, postData=None, appVars=None, person=None):
+		
+		self.log(postData)
+		
+		return FunctionResponse(HTTP_OK, TYPE_JSON, {})
