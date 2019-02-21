@@ -686,6 +686,8 @@ class ChainController(BaseClass):
 		
 		# if this is a read-node only, ignore !!!
 		
+		self.log("Notifying replication partners of message")
+		
 		myid_ = self.deviceid
 		partners_ = []
 		
@@ -702,8 +704,7 @@ class ChainController(BaseClass):
 				partners_.append(partner_.copy())
 
 		if (partners_ != None) and (len(partners_) > 0):
-		
-			self.log("Notifying replication partners of message")
+			
 			self.log("Sending message to %s" % partners_)
 				
 			chain_ = self.chain_

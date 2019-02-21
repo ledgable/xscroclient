@@ -695,11 +695,15 @@ class Chain(ChainReader):
 
 	def writeTransactionsToChain(self, transactionsToWrite=None):
 	
+		self.log("writing transactions %s" % transactionsToWrite)
+	
 		hashout_ = ChainReader.writeTransactionsToChain(self, transactionsToWrite)
 	
 		if (self.controller_ != None):
 			
 			# we do a non-blocking call to inform the replication partners..
+			
+			self.log("notifying partners")
 			
 			idx_ = self.transId
 			
