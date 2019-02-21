@@ -704,7 +704,7 @@ class XscroController(NodeController):
 
 	# /api/<chainid>/ack/<transactionid>/<code>
 
-	@endpoint(1, False, True, None, "get", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/ack/(?P<transactionid>[0-9a-f][^-&*/\%]*)/(?P<code>[0-9][^-&*/\%]*)", "Acknowledge transaction with code")
+	@endpoint(1, False, True, None, "get", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/ack/(?P<transactionid>[0-9a-z][^-&*/\%]*)/(?P<code>[0-9][^-&*/\%]*)", "Acknowledge transaction with code")
 	def ackTransaction(self, postData=None, appVars=None, chainid="", transactionid=None, code=0):
 
 		chainid_ = chainid
