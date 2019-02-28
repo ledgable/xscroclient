@@ -31,3 +31,15 @@ class TestController(Controller):
 		self.log(postData)
 		
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {})
+
+
+	@endpoint(1, False, True, None, "get", "^/requestauth/123", "Request Authentication test")
+	def callBackWatcher(self, postData=None, appVars=None, person=None):
+
+		authinfo_ = appVars.authentication
+		self.log(authinfo_)
+		
+		if (authinfo_ == None):
+			return FunctionResponse(HTTP_SESSION_FAILURE, TYPE_JSON, "123")
+
+		return FunctionResponse(HTTP_OK, TYPE_JSON, {"message":"hello"})
