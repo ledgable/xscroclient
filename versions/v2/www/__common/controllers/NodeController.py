@@ -100,7 +100,7 @@ class NodeController(Controller):
 		return transactions_
 
 	
-	def transactionsWithKeyValue(self, chainid, key=None, value=None, equality="==", hash=BASE_HASH):
+	def transactionsWithKeyValue(self, chainid, classid, key=None, value=None, equality="==", hash=BASE_HASH):
 		
 		chainctrl_ = self.chainById(chainid)
 		transactions_ = []
@@ -109,7 +109,7 @@ class NodeController(Controller):
 			chain_ = chainctrl_.chain
 			
 			if (chain_ != None):
-				transactions_ = chain_.getTransactionsWithKeyValue(key, value, equality, hash)
+				transactions_ = chain_.getTransactionsWithKeyValue(classid, key, value, equality, hash)
 
 		return transactions_
 
