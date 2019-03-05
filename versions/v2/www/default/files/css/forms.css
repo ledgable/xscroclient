@@ -1,0 +1,478 @@
+@CHARSET "UTF-8";
+
+input {
+	background-color: transparent;
+}
+
+form.controldata input,
+form.controldata select,
+ul.fields input,
+ul.fields textarea,
+ul.fields select {
+	position: relative;
+	padding: 5px 10px;
+	line-height: 20px;
+	font-family: Helvetica, Arial;
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	
+/*	box-shadow:inset rgba(0,0,0,0.1) 1px 1px 3px; -moz-box-shadow:inset rgba(0,0,0,0.1) 1px 1px 3px; -webkit-box-shadow:inset rgba(0,0,0,0.1) 1px 1px 3px;*/
+/*	background: linear-gradient(#ddd, #ddd), linear-gradient(#ddd, #ddd), linear-gradient(#ddd, #ddd);*/
+/*	background-size: 1px 10px, 100% 1px, 1px 10px;*/
+/*	background-position: bottom left, bottom center, bottom right;*/
+/*	background-repeat: no-repeat;*/
+
+	color: #000;
+	border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;
+}
+
+input.compress {
+	width: 50px;
+	transition: width .2s linear;
+}
+
+input.compress:focus {
+	width: 120px;
+}
+
+ul.fields li > h3 {
+	margin-bottom: 10px;
+}
+
+*[data-component='repeater'] div.fullwidth span > span select {
+	background-color: transparent;
+	border: 1px solid transparent;
+	width: calc(100% + 14px);
+	margin: -7px -7px;
+	box-shadow:none; -moz-box-shadow:none; -webkit-box-shadow:none;
+}
+
+/* NB. Solves the floating checkbox bug in safari */
+
+form.controldata input:not([type='checkbox']),
+form.controldata select,
+ul.fields input:not([type='checkbox']),
+ul.fields select {
+	height: 34px;
+}
+
+body form.controldata input,
+body form.controldata select,
+body ul.fields textarea,
+body ul.fields input,
+body ul.fields select {
+	background-color: #fff;
+}
+
+body form.controldata input:focus,
+body form.controldata select:focus,
+body ul.fields textarea:focus,
+body ul.fields input:focus,
+body ul.fields select:focus {
+	background-color: #f4fdff;
+}
+
+.dialogbox_content form.controldata input,
+.dialogbox_content form.controldata select,
+.dialogbox_content ul.fields textarea,
+.dialogbox_content ul.fields input,
+.dialogbox_content ul.fields select {
+	background-color: #fff !important;
+}
+
+ul.fields input[readonly],
+ul.fields select[disabled],
+.dialogbox_content ul.fields input[readonly] {
+	background-color: rgba(0,0,0,0.02) !important;
+}
+
+form.controldata input:not([readonly]):focus,
+form.controldata select:not([readonly]):focus,
+ul.fields textarea:not([readonly]):focus,
+ul.fields input:not([readonly]):focus,
+ul.fields select:not([readonly]):focus {
+	border-color: #444;
+/*	background: linear-gradient(#444, #444), linear-gradient(#444, #444), linear-gradient(#444, #444);*/
+/*	background-size: 1px 10px, 100% 1px, 1px 10px;*/
+/*	background-position: bottom left, bottom center, bottom right;*/
+/*	background-repeat: no-repeat;*/
+}
+
+*[data-component='repeater'] div.fullwidth span > span select:focus {
+	border-color: transparent;
+}
+
+form.controldata input:not([type='checkbox']),
+form.controldata select,
+ul.fields textarea,
+ul.fields input:not([type='checkbox']),
+ul.fields select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+form.controldata input[type='checkbox'] {
+	margin-right: 10px;
+}
+
+li.showseparator {
+	padding-top: 10px;
+	border-top: 1px solid #eee;
+	margin-top: 10px !important;
+}
+
+li.showseparator:first-child {
+	border-top: 1px solid transparent;
+}
+
+form section.grid_l,
+form section.grid_r {
+	padding-top: 10px;
+	border-top: 1px solid #eee;
+	margin-top: 10px !important;
+}
+
+form section.grid_l:first-of-type,
+form section.grid_r:first-of-type {
+	border-top: 1px solid transparent;
+}
+
+form section.grid_l > aside.notes,
+form section.grid_r > aside.notes {
+	padding-top: 12px;
+}
+
+
+ul.fields textarea[readonly],
+ul.fields input[readonly],
+ul.fields select:disabled {
+	color: #555;
+}
+
+form.controldata select ~ .form-icon,
+ul.fields select ~ .form-icon {
+	position: absolute;
+	display: inline-block;
+	pointer-events: none;
+	color: #999999;
+	font-size: 21px;
+	margin-left: -30px;
+	margin-right: 30px;
+	top: 5px;
+}
+
+*[data-component='repeater'] div.fullwidth span > span select ~ .form-icon {
+	margin-left: -18px;
+	top: 3px;
+}
+
+ul.fields input ~ .form-currency {
+	position: absolute;
+	display: inline-block;
+	pointer-events: none;
+	color: #999999;
+	margin-left: 10px;
+	top: 8px;
+}
+
+ul.fields div.big > input {
+	font-size: 50px;
+	height: 70px;
+	line-height: 70px;
+}
+
+select.textcenter {
+	text-align: center;
+}
+
+textarea ~ span.button { margin-top: 10px; }
+
+.form-icon:after { content: "."; display:block; clear:both; height:0; visibility:hidden; }
+
+.form-currency:after { content: "."; display:block; clear:both; height:0; visibility:hidden; }
+
+.icon-chevron-down { -ms-transform: rotate(-90deg); -webkit-transform: rotate(-90deg); transform: rotate(-90deg); }
+
+.icon-chevron-down:before { font-family: Helvetica, Arial; content: "‹"; }
+
+select[readonly] ~ span.icon-chevron-down,
+select[disabled=disabled] ~ span.icon-chevron-down {
+	display: none;
+}
+
+.icon-currency { color: #070 !important; font-size: 12px; }
+
+div > input.currency ~ span.icon-currency {
+	position: absolute;
+	left: 0px;
+	margin-top: 2px;
+}
+
+div.input__withtitle ~ span.button {
+	margin-top: 20px;
+}
+
+input[type=checkbox] ~ span:not(.field) {
+	margin-top: 8px;
+}
+
+form > ul > li {
+	position: relative;
+}
+
+form ul.fields > li > div ~ p {
+	margin-top: 10px;
+}
+
+/*form.controldata input,*/
+/*ul.fields textarea,*/
+/*ul.fields input {*/
+/*	position: relative;*/
+/*	padding: 5px 10px;*/
+/*	margin-right: 10px;*/
+/*	background-color: #fff;*/
+/*	border: 1px solid rgba(170,170,170,0.6);*/
+/*	color: #000;*/
+/*	border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px;*/
+/*	box-shadow:rgba(0,0,0,0.1) 0px 0px 3px; -moz-box-shadow:rgba(0,0,0,0.1) 0px 0px 3px; -webkit-box-shadow: rgba(0,0,0,0.1) 0px 0px 3px;*/
+/*}*/
+
+form.controldata input,
+ul.fields input {
+
+}
+
+form.controldata input.default,
+ul.fields input.default {
+	color: #888;
+}
+
+form.controldata input.sm
+{
+	position: relative;
+	padding: 5px 8px;
+	height: 32px;
+	margin-right: 10px;
+	background-color: #f2f2f2;
+	border: 1px solid #f2f2f2;
+	color: #000;
+}
+
+ul.fields div input[type=checkbox] {
+	margin-left: 10px;
+}
+
+ul.fields input[type=checkbox] {
+	
+}
+
+ul.fields input.hidden {
+	display: none;
+}
+
+ul.fields textarea.scrollable {
+	overflow:hidden;
+	overflow-y: auto;
+}
+
+ul.fields textarea {
+	resize: none;
+}
+
+ul.fields textarea.bigtext.autoheight {
+	min-height: 10px;
+	height: auto;
+}
+
+.fullwidth {
+	width: 100%;
+}
+
+ul.fields input.fullwidth,
+ul.fields textarea.fullwidth {
+	display: block;
+}
+
+.dialogbox_content section > ul.fields > li:first-child {
+	margin-top: 40px;
+}
+
+.dialogbox_content section.application__withdrawal ul.fields li.note > div {
+	display: block;
+	width: 100%;
+}
+
+/*.dialogbox_content ul.fields textarea.fullwidth {*/
+/*	width: 100% !important;*/
+/*}*/
+
+input[type="password"] {
+	-webkit-text-security: circle;
+}
+
+ul.fields input[type="file"] {
+	display: none;
+}
+
+/*.upload__image:hover {*/
+/*	box-shadow: 0 0 5px rgba(81, 203, 238, 1);*/
+/*}*/
+
+input.error:not([disabled]):not([readonly]) {
+	color: #C00 !important;
+}
+
+ul.fields input.error:not([disabled]):not([readonly]) {
+	border-color: #C00;
+/*	background: linear-gradient(#C00, #C00), linear-gradient(#C00, #C00), linear-gradient(#C00, #C00);*/
+/*	background-size: 1px 10px, 100% 1px, 1px 10px;*/
+/*	background-position: bottom left, bottom center, bottom right;*/
+/*	background-repeat: no-repeat;*/
+}
+
+input.ok:not([disabled]):not([readonly]) {
+	color: #080 !important;
+}
+
+ul.fields input.ok:not([disabled]):not([readonly]) {
+	border-color: #080;
+/*	background: linear-gradient(#080, #080), linear-gradient(#080, #080), linear-gradient(#080, #080);*/
+/*	background-size: 1px 10px, 100% 1px, 1px 10px;*/
+/*	background-position: bottom left, bottom center, bottom right;*/
+/*	background-repeat: no-repeat;*/
+}
+
+ul.fields input.ok:not([disabled]):not([readonly]):after {
+	content: "x";
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 20px;
+	height: 20px;
+	background-color: #f00;
+}
+
+
+form > div:not(.break) {
+	position: relative;
+	display: inline-block;
+}
+
+form span.button {
+	margin-right: 10px;
+}
+
+form span.button:last-child {
+	margin-right: 0;
+}
+
+.ui-datepicker-trigger {
+	margin-left: 10px;
+}
+
+#ui-datepicker-div {
+	z-index: 9999 !important;
+}
+
+form#nodeinfo textarea {
+	width: 550px;
+	height: 250px;
+	margin-bottom: 10px;
+}
+
+.actions > li > h3 {
+	line-height: 34px;
+	margin-right: 10px;
+}
+
+span.field,
+span ~ span.field,
+ul.fields input ~ span.field {
+	position: absolute;
+	font-size: 12px;
+	font-family: Helvetica, Arial;
+	color: #666;
+	top: -14px;
+	left: 10px;
+}
+
+span.req:after {
+	content: " *";
+	color: #f00;
+}
+
+span.right ~ span.field {
+	text-align: right;
+	right: 10px;
+}
+
+li > div.fieldholder {
+	display: block;
+	margin-top: 30px;
+}
+
+li > div.fieldholder span.right {
+	margin-right: 10px;
+	text-align: right;
+}
+
+li > div.fieldholder > span:not(.field) {
+	margin-left: 10px;
+}
+
+form.controldata > ul > li > span.button {
+	vertical-align: bottom;
+	margin-bottom: 6px;
+}
+
+span.copyallowed {
+	border: 1px solid rgba(0,0,0,0.05);
+	background-color: #ffef96;
+	color: #999;
+	opacity: 0.6;
+	cursor: pointer;
+	font-family:sans-serif;
+	z-index: 2;
+}
+
+span.copyallowed:hover {
+	opacity: 1.0;
+	color: #333;
+}
+
+input ~ span.copyallowed {
+	position: absolute;
+	font-size: 8px;
+	font-weight: 700;
+	margin: 5px 4px;
+	right: 1px;
+	line-height: 21px;
+	height: auto;
+	padding: 1px 5px;
+}
+
+section[data-component='repeater'] span.copyallowed {
+	position: absolute;
+	font-size: 8px;
+	font-weight: 700;
+	right: 5px;
+	height: auto;
+	padding: 0px 5px;
+	top: 4px;
+}
+
+ul.switcher > li {
+	display: inline-block;
+	padding-right: 40px;
+	padding-top: 15px;
+	padding-bottom: 20px;
+	padding-left: 15px;
+	margin-right: 10px;
+	background-color: #f2f2f2;
+}
+
+[data-component="repeater"] span > form > input {
+	margin: -7px -6px;
+	border: 0px;
+}

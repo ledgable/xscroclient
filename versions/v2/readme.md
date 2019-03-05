@@ -20,7 +20,6 @@ The datanode wiki is located https://github.com/ledgable/indigo
 
 The platform has evolved to v2 (shortly to be released) - V1 remains available for now. 
 
-
 The platform enables you to
 
 - Create (Mint) tokens
