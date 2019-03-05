@@ -18,5 +18,5 @@ The datanode wiki is located https://github.com/ledgable/indigo
 
 ## Whats here?
 
-The platform has evolved to v2 (shortly to be released) - V1 remains the current release edition at present
+The platform has evolved to v2 (under test) - V1 remains the current release edition at present
 
