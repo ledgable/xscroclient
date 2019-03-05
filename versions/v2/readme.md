@@ -4,6 +4,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # XSCRO.v2
 
+The documentation is subject to change as this is still under testing
+
 ## What is it?
 
 XSCRO is an DLT-A (Distributed Ledger Technology Application) specifically orientated to trading built upon the Ledgable Indigo platform
