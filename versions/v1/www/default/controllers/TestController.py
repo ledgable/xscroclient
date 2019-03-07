@@ -34,7 +34,7 @@ class TestController(Controller):
 
 
 	@endpoint(1, False, True, None, "get", "^/requestauth/123", "Request Authentication test")
-	def callBackWatcher(self, postData=None, appVars=None, person=None):
+	def testAuthenticationProcess(self, postData=None, appVars=None, person=None):
 
 		authinfo_ = appVars.authentication
 		self.log(authinfo_)
