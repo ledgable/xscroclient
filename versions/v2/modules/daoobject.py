@@ -145,7 +145,6 @@ class DAOCollection(extlist):
 	def item(self, index=0):
 	
 		if (index < len(self)):
-			self.log(item)
 			value_ = json.dumps(self[index], cls=CustomEncoder, sort_keys=True)
 			return value_
 		
