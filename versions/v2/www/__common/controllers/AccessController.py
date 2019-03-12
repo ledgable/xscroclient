@@ -15,7 +15,7 @@ class AccessController(XscroController):
 		XscroController.__init__(self, handler, session, query, isajax)
 	
 	
-	@endpoint(1, False, True, "ADMIN", "post", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/newwallet/(?P<wallet>[0-9a-z][^-&*/\%]*)/(?P<digest>[0-9a-f][^-&*/\%]*)", "Create a new wallet with passcode")
+	@endpoint(1, False, True, None, "post", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)/newwallet/(?P<wallet>[0-9a-z][^-&*/\%]*)/(?P<digest>[0-9a-f][^-&*/\%]*)", "Create a new wallet with passcode")
 	def createWallet(self, postData=None, appVars=None, chainid=None, wallet=None, digest=None):
 	
 		chainid_ = chainid
