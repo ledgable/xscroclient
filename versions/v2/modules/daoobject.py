@@ -9,7 +9,7 @@ from .extdict import *
 class DAOObject(extdict):
 	
 	modified_ = False
-
+	
 	
 	@property
 	def reservedkeys(self):
@@ -131,12 +131,7 @@ class DAOCollection(extlist):
 			for item_ in self:
 				item_.remove(name)
 
-
-	@property
-	def all(self):
-		return self
-														 
-
+	
 	@property
 	def firstitem(self):
 
@@ -150,7 +145,9 @@ class DAOCollection(extlist):
 	def item(self, index=0):
 	
 		if (index < len(self)):
-			return self[index]
+			self.log(item)
+			value_ = json.dumps(self[index], cls=CustomEncoder, sort_keys=True)
+			return value_
 		
 		return None
 

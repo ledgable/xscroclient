@@ -362,18 +362,28 @@ class XscroController(NodeController):
 							ack = code_
 							)
 						
-						# if you are minting a new coin, there is no parent coin - so the wallet needs to be the :ether: wallet
 						if (transaction_.id_parent == RECIPIENT_ETHER):
 							if (wallet == RECIPIENT_ETHER):
 								shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, [newack_])
-								return {"status":STATUS_OK, "chainid":chainid_, "token":token}
-							
+								return {"status":STATUS_OK, "chainid":chainid_, "token":token, "code":code_}
+			
 						# get the parent coin to the transaction - if the authenticated user owns it, allow the ack !
 						else:
-							parent_ = tree_.find(transaction_.id_parent)
-							if (parent_.data.id_recipient == wallet):
-								shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, [newack_])
-								return {"status":STATUS_OK, "chainid":chainid_, "token":token}
-
+							origintoken_ = self.getToken(chainid_, transaction_.id_parent)
+							if (origintoken_.data.id_recipient == wallet):
+								
+								if (code_ == 1):
+									volume_ = float(transaction_.volume)
+									balance_ = origintoken_.balance
+									
+									if (balance_ < volume_):
+										newack_.ack = -1
+										shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, [newack_])
+										return {"status":STATUS_FAIL, "chainid":chainid_, "reason":"Insufficient balance", "code":newack_.ack}
+							
+								else:
+									shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, [newack_])
+									return {"status":STATUS_OK, "chainid":chainid_, "token":token, "code":code_}
+	
 		return None
 

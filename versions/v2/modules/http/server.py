@@ -159,25 +159,19 @@ class MyHandler(CoreHandler):
 			
 			if (data == None):
 				return None
-
-			elif issubclass(data.__class__, DAOObject):
-				return json.dumps(data, cls=CustomEncoder)
-		
-			elif issubclass(data.__class__, DAOCollection):
-				return json.dumps(data, cls=CustomEncoder)
-
-			elif type(data) == type(extdict()):
-				return json.dumps(data, cls=CustomEncoder)
-
-			elif type(data) == type(extlist()):
-				return json.dumps(data, cls=CustomEncoder)
-
+				
+			elif issubclass(data.__class__, extlist):
+				return json.dumps(data.all, cls=CustomEncoder)
+			
+			elif issubclass(data.__class__, extdict):
+				return json.dumps(data.dict(), cls=CustomEncoder)
+			
 			elif type(data) == type(dict()):
 				return json.dumps(data, cls=CustomEncoder)
-
+			
 			elif type(data) == type(list()):
-				return json.dumps(data, cls=CustomEncoder)
-
+				return json.dumps(data, cls=CustomEncoder);
+			
 			else:
 				return str(data, UTF8)
 		
