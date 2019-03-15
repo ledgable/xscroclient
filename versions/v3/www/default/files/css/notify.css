@@ -1,0 +1,26 @@
+
+@CHARSET "UTF-8";
+
+#notifications__main {
+	position: fixed; left: 10px; top: 10px; width: auto; height: auto; z-index: 1000;
+}
+
+#notifications__main > ul > li.message {
+	max-width: 350px;
+	margin-bottom: 10px;
+}
+
+#notifications__main > ul > li.message:last-child {
+	margin-bottom: 0px;
+}
+
+#notifications__main > ul > li.message > span {
+	padding: 10px 15px;
+	background-color: #060;
+	color: #fff;
+	border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;
+}
+
+#notifications__main > ul > li.message.failed > span {
+	background-color: #900;
+}

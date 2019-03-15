@@ -1,0 +1,144 @@
+
+@CHARSET "UTF-8";
+
+.trading__view {
+	position: fixed;
+	top: 0px; left: 0px;
+	width: 100%; height: 200px;
+	background-color: #f2f2f2;
+	z-index: 1;
+	border-bottom: 1px solid #eee;
+}
+
+.trading__view > canvas {
+	display: block;
+}
+
+.trading__view + * {
+	position: relative;
+	padding-top: 200px !important;
+}
+
+.panel {
+	position: relative;
+	padding: 20px;
+	background-color: #fff;
+	border: 7px solid #ddd;
+	box-shadow:0px 1px 3px rgba(0,0,0,.5); -moz-box-shadow:0px 1px 3px rgba(0,0,0,.5); -webkit-box-shadow:0px 1px 3px rgba(0,0,0,.5);
+	overflow: hidden;
+	border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;
+}
+
+.panel > .top {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 50px;
+	background-color: #ddd;
+	border-bottom: 1px solid #ddd;
+	z-index: 2;
+}
+
+.panel > .bottom {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 50px;
+	background-color: #f2f2f2;
+	border-top: 1px solid #eee;
+	z-index: 2;
+	color: #888;
+	font-size: 10px;
+}
+
+.panel > .bottom > *,
+.panel > .top > * {
+	padding: 10px 20px;
+	line-height: 30px;
+	height: 30px;
+}
+
+.panel > .top + .content {
+	margin-top: 50px;
+	padding-bottom: 40px;
+}
+
+.panel > .content {
+	width: 100%;
+	position: relative;
+}
+
+.panel.focus {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.panel.blue { border-color: #2483ff; }
+.panel.blue > .top { background-color: #2483ff; border-bottom-color: #2483ff; color: #fff; }
+
+.panel.red { border-color: #ff0000; }
+.panel.red > .top { background-color: #ff0000; border-bottom-color: #ff0000; color: #fff; }
+
+span.highlight {
+	padding: 10px;
+	width: calc(100% - 20px);
+	border: 1px solid #f2f2f2;
+	background-color: #f8f8f8;
+	margin-bottom: 10px;
+	vertical-align: top;
+}
+
+span.highlight > pre {
+	margin: 0;
+}
+
+span.highlight > * {
+	vertical-align: top;
+	display: inline-block;
+}
+
+.wallet__entry {
+	position: relative;
+	display: inline-block;
+	width: 100px; height: 140px;
+	margin: 0px 20px 20px 0px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	box-shadow:0px 1px 3px rgba(0,0,0,.05); -moz-box-shadow:0px 1px 3px rgba(0,0,0,.05); -webkit-box-shadow:0px 1px 3px rgba(0,0,0,.05);
+	overflow: hidden;
+	border-radius:2px; -moz-border-radius:2px; -webkit-border-radius:2px;
+}
+
+.wallet__entry > span.icon {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	width: 80px;
+	height: 80px;
+	background-image: url('/images/icons/icon_wallet.png');
+}
+
+.wallet__entry > span.info {
+	width: 100%;
+	position: absolute;
+	bottom: 5px;
+	left: 0px;
+}
+
+.wallet__entry > span.info > * {
+	position: relative;
+	font-size: 10px;
+	line-height: 10px;
+	height: 10px;
+	margin-bottom: 3px;
+	text-align: center;
+}
+
+#chain__selector {
+	margin-top: -7px;
+}
+

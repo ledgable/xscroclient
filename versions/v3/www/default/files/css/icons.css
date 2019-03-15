@@ -1,0 +1,21 @@
+
+@CHARSET "UTF-8";
+
+.icon {
+	width: 14px; height: 14px;
+	margin-right: 5px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.icon.company { background-image: url('/images/noimage.jpg'); }
+
+.icon[data-event] { cursor: pointer; }
+
+.icon:last-of-type { margin-right: 0px; }
+
+.icon.big { width: 80px; height: 80px; }
+
+.icon.icon_accept {	background-image: url('/images/icons/icon_checked.png'); }
+.icon.icon_cancel { background-image: url('/images/icons/icon_delete.png'); }
