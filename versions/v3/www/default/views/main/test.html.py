@@ -1,8 +1,21 @@
 
-<form id="testform">
+<form id="testform" class="controldata">
 
-	<input id="address" name="address" type="text" value="address"></input>
-	<textarea id="paymentinfo" name="paymentinfo"></textarea>
+	<ul class="fields">
+	
+		<li>
+			<input id="address" name="address" type="text" value="<py>print(vars.host, file=stdout)</py>"></input>
+		</li>
+
+		<li>
+			<p>Enter the base64 document here - use <a class="link" target="__blank" href="https://www.base64encode.org">https://www.base64encode.org</a> to convert from json to base64</p>
+		</li>
+			
+		<li>
+			<textarea class="w400 h300" id="paymentinfo" name="paymentinfo"></textarea>
+		</li>
+
+	</ul>
 
 </form>
 

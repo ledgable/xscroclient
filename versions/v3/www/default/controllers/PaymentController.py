@@ -48,20 +48,26 @@ class PaymentController(XscroController):
 					container_ = xscro_.containers[chainid_]
 					
 					if (container_):
+						walletids_ = list(container_.wallets.keys())
 						
-						wallet_ = container_.walletFor(walletid_)
-						success_ = (kpt1out_ == wallet_.digest)
-						
-						if (success_):
-							payment_.sender = {"walletid":walletid_}
-							payment_.page = "balance"
-							payment_.balance = wallet_.balance
-							payment_.remaining = (wallet_.balance - payment_.amount)
+						if (walletid_ in walletids_):
 							
-							self.session.payment = payment_
+							wallet_ = container_.walletFor(walletid_)
+							success_ = (kpt1out_ == wallet_.digest)
+							
+							if (success_):
+								payment_.sender = {"walletid":walletid_}
+								payment_.page = "balance"
+								payment_.balance = wallet_.balance
+								payment_.remaining = (wallet_.balance - payment_.amount)
+								
+								self.session.payment = payment_
 
-							return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Logged In", "refresh":"window"})
+								return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Logged In", "refresh":"window"})
 					
+						else:
+							pass # wallet isnt registered...
+			
 					return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Credentials are invalid"})
 
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Something critical went wrong"})
