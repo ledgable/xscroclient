@@ -88,7 +88,7 @@ class SessionMgr(BaseClass):
 		return sessioninfo_
 
 	def __init__(self):
-		
+				
 		self.NO_TRACKING_SESSION_ = None
 		self.sessions_ = {}
 		
@@ -141,5 +141,5 @@ class SessionMgr(BaseClass):
 				 )
 
 		self.sessions_[sessionid_] = sessioninfo_
-
+		
 		return sessioninfo_

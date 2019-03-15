@@ -5,6 +5,23 @@
 	"ENABLED":1,
 	"SERVICE_NAME":"*",
 	"HOST_NAMES":["*"],
-	"COOKIE_DOMAIN":"127.0.0.1",
-	"SUPPORTED_LANGS":["en"]
+	"COOKIE_DOMAIN":"*",
+	"SUPPORTED_LANGS":["en"],
+	"PORTS":{
+		"80":{
+			"allow":[
+				{"url":"*"}
+			]
+		},
+		"443":{
+			"allow":[
+				{"url":"*"}
+			]
+		},
+		"8080":{
+			"allow":[
+				{"url":"*"}
+			]
+		}
+	}
 }

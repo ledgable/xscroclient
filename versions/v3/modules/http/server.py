@@ -540,7 +540,7 @@ class MyHandler(CoreHandler):
 							value_ = parts_[1]
 							valuepush_ = urllib.parse.unquote(value_)							
 							vars_.__setattr__(parts_[0], valuepush_)
-							
+								
 		try:
 			headerKeys_ = self.headers.keys()
 
@@ -569,7 +569,7 @@ class MyHandler(CoreHandler):
 			
 			if (vars_.AcceptLanguage != None):
 				vars_.language = self.detectLocale(vars_.AcceptLanguage)
-			
+		
 			# recover session etc. information if available from cookie !!
 
 			if (vars_.session_id == None):
@@ -687,7 +687,7 @@ class MyHandler(CoreHandler):
 					
 					if (len(current_) > 0):
 						session_ = self.SESSIONS.sessionForId(vars_.session_id)
-					
+
 						if (session_ == None):
 							vars_.session_id = None # reset session with a new one !
 									
@@ -973,13 +973,13 @@ class MyHandler(CoreHandler):
 
 							# prevent TLS issues arising
 							self.send_header("Strict-Transport-Security", "max-age=86400; includeSubDomains")
-							
+
 							# prevent iframe abuse (only allow same origin) - options are...
 							# ALLOW-FROM https://example.com/
 							# DENY
 							# SAMEORIGIN
+						
 							self.send_header("X-Frame-Options", "SAMEORIGIN")
-
 							# prevent Cross Site Scripting etc
 							self.send_header("X-XSS-Protection", "1; mode=block")
 							self.send_header("X-Content-Type-Options", "nosniff")
@@ -997,12 +997,12 @@ class MyHandler(CoreHandler):
 								
 								# if we use a default servicename, then cookies should link to the hostname
 								
-								if (self.CONFIG.SERVICE_NAME == "*"):
-									host_ = vars_.HOST
+								if (self.CONFIG.COOKIE_DOMAIN == "*"):
+									host_ = vars_.HOST.split(":")[0]
 									cookie_[cookiekey_]["domain"] = host_
 
 								else:
-									cookie_[cookiekey_]["domain"] = ("." + self.CONFIG.SERVICE_NAME)
+									cookie_[cookiekey_]["domain"] = self.CONFIG.COOKIE_DOMAIN
 
 								cookie_[cookiekey_]["path"] = "/"
 								cookie_[cookiekey_]["max-age"] = TIMEOUT

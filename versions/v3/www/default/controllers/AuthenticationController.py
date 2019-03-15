@@ -27,18 +27,16 @@ class AuthenticationController(XscroController):
 		if (password_ != None):
 		
 			sessionid_ = self.session.id_session
-		
-			self.log(self.session.id_session)
-		
+				
 			kpt1_ = hashlib.md5()
 			kpt1_.update(("%s:%s" % (sessionid_, password_)).encode(UTF8))
 			digestknown_ = kpt1_.hexdigest()
 			
 			if (digestknown_ == digestin_):
-				
 				self.session.username = username_
-				
-				return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Login Successful", "refresh":"window"})
+				self.handler.SESSIONS.sessions[sessionid_] = self.session
+
+				return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Login Successful", "refresh":"window", "delay":100})
 
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Incorrect username/password"})
 	
