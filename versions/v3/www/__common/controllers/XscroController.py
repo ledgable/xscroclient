@@ -361,8 +361,6 @@ class XscroController(NodeController):
 				
 				if (chainid_ in xscro_.containers.keys()):
 				
-					self.log("here")
-
 					container_ = xscro_.containers[chainid_]
 					walletkeys_ = list(container_.wallets.keys())
 					
