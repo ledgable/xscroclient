@@ -24,47 +24,7 @@ class TestController(XscroController):
 				
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "message":("Well this worked !! - Received %s" % params), "mode":"messagebox"})
 
-
-	@endpoint(1, True, True, None, "post", "^/callbackwatcher/(?P<chainid>[0-9a-z][^-&*/\%]*)", "check watcher works")
-	def callBackWatcher(self, postData=None, appVars=None, chainid=None):
-		
-		MULTIPLIER = 2.0
-		HOSTWALLET = "xscro"
-		
-		if (postData != None) and (chainid != None) and (HOSTWALLET != None):
-			
-			chainid_ = chainid.lower()
-			xscro_ = ApplicationManager().get("xscro")
-			
-			if (chainid_ in xscro_.containers.keys()):
-
-				transactions_ = extlist(json.loads(postData))
-				container_ = xscro_.containers[chainid_]
-				
-				if (transactions_ != None) and (len(transactions_) > 0):
-					
-					for transaction_ in transactions_:
-					
-						self.log(transaction_)
-
-						recipientid_ = transaction_.sender
-						transactionid_ = transaction_.transactionid
-						volume_ = float(Decimal(transaction_.volume)) * MULTIPLIER
-						price_ = 0.0
-						
-						storedtransaction_ = container_.findTransaction(transactionid_)
-						
-						if (storedtransaction_):
-							# already processed this transaction
-						
-							self.log("Already noted this! - Skipping")
-						
-						else:
-							success_, uid_, status = XscroController.transferValue(self, chainid_, HOSTWALLET, recipientid_, transactionid_, volume_, price_, "Token Transferred From Ether", None, "TransferDesk")
 	
-		return FunctionResponse(HTTP_OK, TYPE_JSON, {})
-
-
 	@endpoint(1, False, True, None, "get", "^/requestauth/123", "Request Authentication test")
 	def testAuthenticationProcess(self, postData=None, appVars=None, person=None):
 	

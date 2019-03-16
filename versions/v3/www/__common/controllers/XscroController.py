@@ -276,27 +276,29 @@ class XscroController(NodeController):
 		success_ = False
 	
 		if (password != None):
-			
 			chainid_ = chainid.lower()
 			
 			if (chainid_ in chains_):
-				
 				xscro_ = ApplicationManager().get("xscro")
 
 				if (xscro_ != None):
 					
-					container_ = xscro_.containers[chainid_]
-					walletids_ = list(container_.wallets.keys())
+					if (chainid_ in xscro_.containers.keys()):
 					
-					# do not use walletfor otherwise it is created and we get alot of crap...
-					if (walletid in walletids_):
-						digest_ = container_.wallets[walletid].digest
-						nonce_ = ("%s:%s:%s" % (chainid, password, walletid))
-						kpt1_ = hashlib.md5()
-						kpt1_.update(nonce_.encode(UTF8))
-						kpt1out_ = kpt1_.hexdigest()
+						container_ = xscro_.containers[chainid_]
+						walletids_ = list(container_.wallets.keys())
 						
-						success_ = (kpt1out_ == digest_)
+						# do not use walletfor otherwise it is created and we get alot of crap...
+						if (walletid in walletids_):
+							digest_ = container_.wallets[walletid].digest
+							nonce_ = ("%s:%s:%s" % (chainid, password, walletid))
+							kpt1_ = hashlib.md5()
+							kpt1_.update(nonce_.encode(UTF8))
+							kpt1out_ = kpt1_.hexdigest()
+							
+							success_ = (kpt1out_ == digest_)
+							if (success_):
+								token_ = digest_
 	
 		return success_, token_
 			
@@ -358,7 +360,9 @@ class XscroController(NodeController):
 			if (xscro_ != None):
 				
 				if (chainid_ in xscro_.containers.keys()):
-					
+				
+					self.log("here")
+
 					container_ = xscro_.containers[chainid_]
 					walletkeys_ = list(container_.wallets.keys())
 					
@@ -395,7 +399,7 @@ class XscroController(NodeController):
 		return out_
 	
 	
-	def allTransactionsForWallet(self, chainid, wallet):
+	def allTransactionsForWallet(self, chainid, walletid):
 	
 		out_ = []
 		
@@ -409,10 +413,34 @@ class XscroController(NodeController):
 				if (chainid_ in xscro_.containers.keys()):
 					
 					container_ = xscro_.containers[chainid_]
-					wallet_ = container_.walletFor(wallet)
+					wallet_ = container_.walletFor(walletid)
 					out_ = wallet_.transactions_
 	
 		return out_
+	
+	
+	def allOpenTransactionsForWallet(self, chainid, walletid):
+		
+		out_ = []
+		
+		if (chainid != None):
+			
+			chainid_ = chainid.lower()
+			xscro_ = ApplicationManager().get("xscro")
+			
+			if (xscro_ != None):
+				
+				if (chainid_ in xscro_.containers.keys()):
+					
+					container_ = xscro_.containers[chainid_]
+					pending_ = list(container_.pending.values())
+
+					for transaction_ in transactions_:
+						if (transaction_.id_parent == walletid):
+							out_.append(transaction_)
+								
+		return out_
+
 	
 	# Ack Transaction
 	

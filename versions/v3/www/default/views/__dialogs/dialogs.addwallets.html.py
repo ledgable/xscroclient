@@ -1,7 +1,7 @@
 
 <py>
 
-chainid_ = self.session.chainid
+chainid_ = vars.uidin
 
 </py>
 

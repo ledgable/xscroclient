@@ -708,7 +708,9 @@ class MyHandler(CoreHandler):
 
 				# Authenticate the connection (if not done already)
 
-				if (session_.username == None):
+				username_ = session_.username
+
+				if (username_ == None):
 					
 					if (vars_.authorization != None):
 						
@@ -725,6 +727,7 @@ class MyHandler(CoreHandler):
 						
 						else:
 							vars_.authentication = {"username":username_, "password":password_, "realm":realm_}
+							session_.permissions = []
 
 					else:
 						if (self.CONFIG.REQUIRE_AUTH == 1):
@@ -744,7 +747,26 @@ class MyHandler(CoreHandler):
 								
 				else:
 					
-					session_.permissions = self.AUTHENTICATION.permissionsForUser(session_.username)
+					parts_ = username_.split(":")
+					
+					if (parts_[0] == "wallet"):
+						
+						session_.permissions = []
+						chainid_, walletid_, digest_ = parts_[1].split(",")
+						xscro_ = ApplicationManager().get("xscro")
+
+						if (xscro_ != None):
+							
+							container_ = xscro_.containers[chainid_]
+							walletids_ = list(container_.wallets.keys())
+	
+							# do not use walletfor otherwise it is created and we get alot of crap...							
+							if (walletid_ in walletids_):
+								session_.permissions = ["WALLET", "USER"]
+				
+					else:
+						session_.permissions = self.AUTHENTICATION.permissionsForUser(username_)
+					
 
 			# check permission set...
 

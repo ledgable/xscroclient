@@ -116,7 +116,7 @@ class SecurityMgr(BaseClass):
 				userinfo_ = permissions_[username]
 				return userinfo_.rights
 
-		return None
+		return []
 
 			
 	def check(self, header=None):

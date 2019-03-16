@@ -191,6 +191,56 @@ App.Admin.Wallets = {
 	
 };
 
+
+App.Admin.Tokens = {
+
+	showMintToken : function(oEvent, oArgs) {
+		
+		App.UI.DialogManager.createDialog(null, ("/show/dialog/minttoken/" + oArgs.uid), {'width':650, 'height':0});
+		
+	},
+	
+	mintToken : function (oEvent, oArgs) {
+		
+		var oData = $('*').triggerHandler('do-formdata', {'target':'edit__minttoken'});
+		oData.chainid = oArgs.uid;
+		
+		var oRequest = {actions:[{action:'admin.minttoken',data:oData}], jw:App.Core.Security.code};
+		$('*').triggerHandler('handle-app', oRequest);
+		
+	}
+	
+};
+
+
+App.Admin.Security = {
+	
+	logout : function(oEvent, oArgs) {
+		
+		var oData = {};
+		var oRequest = {actions:[{action:'admin.userlogout',data:oData}], jw:App.Core.Security.code};
+		$('*').triggerHandler('handle-app', oRequest);
+		
+	},
+	
+	login : function(oEvent, oArgs) {
+		
+		var oData = $('*').triggerHandler('do-formdata', {'target':'user__info'});
+		
+		var sessionId = App.Core.Security.sessionId;
+		var md5pass = $.md5(oData.password);
+		var tokentosend = $.md5((sessionId + ":" + md5pass));
+		
+		oData.password = tokentosend;
+		
+		var oRequest = {actions:[{action:'admin.userlogin',data:oData}], jw:App.Core.Security.code};
+		$('*').triggerHandler('handle-app', oRequest);
+		
+	},
+	
+};
+
+
 $(document).ready(function() {
 				  
 				  App.Admin.__preinit();

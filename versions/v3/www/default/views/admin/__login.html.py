@@ -2,7 +2,7 @@
 <section class="panel focus w500">
 
 	<div class="top">
-		<span>Login</span>
+		<span>Admin Login</span>
 	</div>
 
 	<div class="content">
@@ -23,7 +23,7 @@
 
 			<ul class="clear">
 				<li class="action">
-					<span class="button green upper" data-event="{'action':'Security.User','event':'login','args':{}}">Login</span>
+					<span class="button green upper" data-event="{'action':'Admin.Security','event':'login','args':{}}">Login</span>
 				</li>
 			</ul>
 

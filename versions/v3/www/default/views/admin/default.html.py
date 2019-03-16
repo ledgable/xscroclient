@@ -28,7 +28,7 @@ chainid_ = self.session.chainid
 				</div>
 			</form></span>
 			
-			<span class="button red upper" data-event="{'action':'Security.User','event':'logout','args':{}}">Logout</span>
+			<span class="button red upper" data-event="{'action':'Admin.Security','event':'logout','args':{}}">Logout</span>
 		</li>
 	
 	</ul>

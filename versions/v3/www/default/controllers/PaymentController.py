@@ -113,7 +113,7 @@ class PaymentController(XscroController):
 			price_ = payment_.default("price" , 0.0)
 			paymentdesc_ = "Some Payment Description"
 			ipaddress_ = self.session.ip_address
-			traderid_ = "ePurchase"
+			traderid_ = "eSelfService"
 						
 			success_, paymenttoken_, msg_ = XscroController.transferValue(self, chainid_, senderwallet_, recipientwallet_, transactionid_, volume_, price_, paymentdesc_, ipaddress_, traderid_)
 			
