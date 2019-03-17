@@ -7,27 +7,43 @@
 
 	<div class="content">
 
-		<form id="user__info" class="controldata">
+		<section class="grid_p clear">
+			
+			<aside>
+				
+				<span class="icon company big"></span>
+			
+			</aside>
+			
+			<section>
+				
+				<h1>Welcome</h1>
 
-			<ul class="fields">
+				<form id="user__info" class="controldata">
 
-				<li>
-					<div class=""><input name="username" type="text" class="w300" data-req="true" data-default="Username" value="Username" data-validator="username"></input><span class="field req">Username</span></div>
-				</li>
+					<ul class="fields">
 
-				<li>
-					<div class=""><input name="password" type="password" class="w300" data-req="true" data-default="Password" value="Password"></input><span class="field req">Password</span></div>
-				</li>
+						<li>
+							<div class=""><input name="username" type="text" class="w300" data-req="true" data-default="Username" value="Username" data-validator="username"></input><span class="field req">Username</span></div>
+						</li>
 
-			</ul>
+						<li>
+							<div class=""><input name="password" type="password" class="w300" data-req="true" data-default="Password" value="Password"></input><span class="field req">Password</span></div>
+						</li>
 
-			<ul class="clear">
-				<li class="action">
-					<span class="button green upper" data-event="{'action':'Admin.Security','event':'login','args':{}}">Login</span>
-				</li>
-			</ul>
+					</ul>
 
-		</form>
+					<ul class="clear">
+						<li class="action">
+							<span class="button green upper" data-event="{'action':'Admin.Security','event':'login','args':{}}">Login</span>
+						</li>
+					</ul>
+
+				</form>
+					
+			</section>
+				
+		</section>
 
 	</div>
 
