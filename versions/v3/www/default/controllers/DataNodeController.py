@@ -65,7 +65,7 @@ class DataNodeController(NodeController):
 	
 	# Write a transaction into the chain - goes via the chaincontroller
 	
-	@endpoint(1, False, True, None, "post", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)", "Write a transaction")
+	@endpoint(1, False, True, "ADMIN", "post", "^/api/(?P<chainid>[0-9a-f][^-&*/\%]*)", "Write a transaction")
 	def writeTransactions(self, postData=None, appVars=None, chainid=None):
 		
 		if (postData != None):
