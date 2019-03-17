@@ -196,7 +196,7 @@ ul.fields select ~ .form-icon {
 	font-size: 21px;
 	margin-left: -30px;
 	margin-right: 30px;
-	top: 3px;
+	top: 5px;
 }
 
 form.controldata input ~ .icon.form-icon,
