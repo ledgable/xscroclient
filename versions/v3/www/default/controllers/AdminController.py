@@ -69,9 +69,17 @@ class AdminController(XscroController):
 							
 							digest_ = wallet_.password
 							walletid_ = wallet_.walletid
+							continue_ = False
 							
 							if (walletid_ not in walletids_):
+								continue_ = True
 							
+							else:
+								wallet_ = container_.wallets[walletid_]
+								if (wallet_.digest_ == None):
+									continue_ = True
+							
+							if (continue_):
 								newauth_ = extdict()
 								newauth_["$class"] = XSCRO_AUTHID
 								
@@ -90,9 +98,8 @@ class AdminController(XscroController):
 								transactions_.append(newauth_)
 						
 						if (len(transactions_) > 0):
-							shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, transactions_)
-							
-							return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"%d Wallets Created" % (len(transactions_))})
+							shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, transactions_)							
+							return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"%d Wallets Created" % (len(transactions_)), "refresh":"page"})
 	
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Invalid operation"})
 	

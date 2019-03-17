@@ -160,7 +160,7 @@ App.Admin.Wallets = {
 		var wallets = App.UI.DataServices.dataitems.get("newwallets");
 		
 		for (var counter=0; counter < wallets.length; counter++) {
-			wallet = wallets[counter];
+			var wallet = wallets[counter];
 			if (wallet.uid == uid) {
 				wallet.password = password;
 				wallet.walletid = walletid;
@@ -169,7 +169,6 @@ App.Admin.Wallets = {
 		}
 		
 		App.UI.DataServices.dataitems.add("newwallets", wallets);
-		console.info(wallets);
 		
 	},
 	

@@ -14,7 +14,7 @@ chainid_ = self.session.chainid
 		</li>
 	</ul>
 			
-	<section data-component="repeater" data-datasource="/api/user/open/transactions" data-enumerate='transactions' data-cache="0" data-sorton="!$time" data-id="uid" data-mode="none">
+	<section data-component="repeater" data-datasource="/api/user/open/transactions/100" data-enumerate='transactions' data-cache="0" data-sorton="!$time" data-id="uid" data-mode="none">
 		
 		<ul class="list grid bordered"></ul>
 		

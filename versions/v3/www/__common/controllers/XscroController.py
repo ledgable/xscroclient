@@ -432,10 +432,11 @@ class XscroController(NodeController):
 					
 					container_ = xscro_.containers[chainid_]
 					pending_ = list(container_.pending.values())
-
-					for transaction_ in transactions_:
-						if (transaction_.id_parent == walletid):
-							out_.append(transaction_)
+					
+					if (len(pending_) > 0):
+						for transaction_ in pending_:
+							if (transaction_.id_parent == walletid):
+								out_.append(transaction_)
 								
 		return out_
 

@@ -13,8 +13,47 @@ class UserController(XscroController):
 		self.session.username = None
 		
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Logged Out", "refresh":"window"})
-		
 	
+	
+	@endpoint(1, True, True, "WALLET", "gateway", "^walletuser.acktransaction", "Acknowledge Transaction")
+	def walletUserAckTransaction(self, postData=None, appVars=None, params=None, content=None):
+		
+		paymenttoken_ = params.token
+		code_ = int(params.code)
+
+		username_ = self.session.username
+		
+		if (username_ != None):
+			
+			tokentype_, nonce_ = username_.split(":")
+			chainid_, walletid_, digest_ = nonce_.split(",")
+			xscro_ = ApplicationManager().get("xscro")
+				
+			if (chainid_ != None) and (paymenttoken_ != None):
+			
+				chainid_ = chainid_.lower()
+			
+				if (chainid_ in xscro_.containers.keys()):
+				
+					container_ = xscro_.containers[chainid_]
+					transaction_ = container_.pending[paymenttoken_]
+					
+					if (transaction_ != None) and (transaction_.id_parent == walletid_):
+						
+						success_, response_ = XscroController.ackTransaction(self, chainid_, walletid_, paymenttoken_, code_)
+						
+						if (success_):
+							if (code_ == 1):
+								return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Transaction acknowledged"})
+							else:
+								return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":("Transaction rejected (code=%d)" % code_)})
+					
+						else:
+							return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":response_})
+
+		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Invalid operation"})
+
+		
 	@endpoint(1, True, True, None, "gateway", "^walletuser.changepassword", "Login User")
 	def walletUserChangePassword(self, postData=None, appVars=None, params=None, content=None):
 	
@@ -41,7 +80,81 @@ class UserController(XscroController):
 					
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Operation Failed"})
 
+
+	@endpoint(1, True, True, "WALLET", "gateway", "^walletuser.transferfunds", "Transfer funds")
+	def walletUserTransferFunds(self, postData=None, appVars=None, params=None, content=None):
 	
+		note_ = params.note
+		
+		if (note_ == None):
+			note_ = "Transaction initiated via web interface"
+		
+		transfers_ = params.transfers
+		username_ = self.session.username
+		xscro_ = ApplicationManager().get("xscro")
+		
+		if (username_ != None):
+			
+			tokentype_, nonce_ = username_.split(":")
+			chainid_, walletid_, digest_ = nonce_.split(",")
+		
+			chainid_ = chainid_.lower()
+			
+			if (chainid_ in xscro_.containers.keys()):
+				
+				container_ = xscro_.containers[chainid_]
+				wallet_ = container_.walletFor(walletid_)
+				transactions_ = []
+				balance_ = wallet_.balance
+
+				for transfer_ in transfers_:
+					
+					# if volume or price is < 0 then abort
+					
+					recipientid_ = transfer_.walletid
+					transid_ = transfer_.transid
+					volume_ = float(transfer_.volume)
+					price_ = float(transfer_.ppt)
+					
+					if (volume_ > 0) and (price_ >= 0):
+						if (balance_ >= volume_):
+						
+							# we push a transaction into the chain with the new information !
+						
+							newcoin_ = extdict()
+							newcoin_["$class"] = XSCRO_RECORDID
+						
+							uid_ = None
+						
+							# need to check the token is unique...
+						
+							while (True):
+								uid_ = self.randomCode(50, (string.ascii_letters + string.digits))
+								oldtoken_ = container_.find(uid_)
+								if (oldtoken_ == None):
+									break
+					
+							setattrs(newcoin_,
+								uid = uid_,
+								id_parent = walletid_,
+								id_transaction = transid_,
+								ip_address = self.session.ip_address,
+								id_recipient = recipientid_,
+								id_trader = "eSelfService",
+								token_price = price_,
+								volume = volume_,
+								additional = note_
+								)
+			
+							transactions_.append(newcoin_)
+
+				if (len(transactions_) > 0):
+					shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, transactions_)
+					return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":("%d Transactions created" % (len(transactions_))), "refresh":"page"})
+						
+		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Operation Failed"})
+
+			
 	@endpoint(1, True, True, None, "gateway", "^walletuser.userlogin", "Login User")
 	def walletUserLogin(self, postData=None, appVars=None, params=None, content=None):
 		

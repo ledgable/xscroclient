@@ -10,6 +10,7 @@ chainid_ = self.session.chainid
 	<ul class="actions collection clear">
 		<li class="header"><span>Recent Transactions</span></li>
 		<li class="right">
+			<span class="button blue" data-event="{'action':'User.Tokens','event':'showTransfer','args':{}}">Transfer Funds</span>
 			<span class="button orange" data-event="{'action':'Xscro','event':'refresh','args':{}}">Refresh</span>
 		</li>
 	</ul>

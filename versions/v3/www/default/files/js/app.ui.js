@@ -2692,14 +2692,18 @@ App.UI.Repeater = {
 				var rowClass = (_rowClass != null) ? ' ' + _rowClass : '';
 				
 				// make variable substitution here....
-				if (rowClass != '') rowClass = App.UI.Core.doVarSubstitution(data[counter], rowClass);				
-				var output_item = App.UI.Core.doVarSubstitution(data[counter], template_item);
 				
-				var _currentid = ((data[counter] != null) && (id != '') && (data[counter][id] != null)) ? data[counter][id] : counter;
+				var dataContent = data[counter];
+				dataContent.rowindex = counter;
 				
-				var styleInfo = (_styleInfo != null) ? App.UI.Core.doVarSubstitution(data[counter], _styleInfo) : null;
-				var eventInfo = (_eventInfo != null) ? App.UI.Core.doVarSubstitution(data[counter], _eventInfo) : null;
-				var eventUrl =  (_eventUrl  != null) ? App.UI.Core.doVarSubstitution(data[counter], _eventUrl)  : null;
+				if (rowClass != '') rowClass = App.UI.Core.doVarSubstitution(dataContent, rowClass);
+				var output_item = App.UI.Core.doVarSubstitution(dataContent, template_item);
+				
+				var _currentid = ((data[counter] != null) && (id != '') && (dataContent[id] != null)) ? dataContent[id] : counter;
+				
+				var styleInfo = (_styleInfo != null) ? App.UI.Core.doVarSubstitution(dataContent, _styleInfo) : null;
+				var eventInfo = (_eventInfo != null) ? App.UI.Core.doVarSubstitution(dataContent, _eventInfo) : null;
+				var eventUrl =  (_eventUrl  != null) ? App.UI.Core.doVarSubstitution(dataContent, _eventUrl)  : null;
 				
 				if (_selectedid != null && _selectedid != 'undefined' && _currentid == _selectedid) {
 					rowClass = rowClass + ((_rowClass != '') ? ' ' : '') + "selected";
