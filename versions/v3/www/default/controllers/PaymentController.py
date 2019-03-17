@@ -44,7 +44,6 @@ class PaymentController(XscroController):
 			else:
 				
 				if (chainid_ in xscro_.containers.keys()):
-					
 					container_ = xscro_.containers[chainid_]
 					
 					if (container_):
@@ -80,23 +79,28 @@ class PaymentController(XscroController):
 		
 		if (self.session.payment != None):
 			payment_ = self.session.payment
-	
+		
 		if (payment_ != None):
 			redirecttocancel_ = None
+			callbackroot_ = payment_.callbacks
+			paymenttoken_ = payment_.paymenttoken
 			
-			try:
-				redirecttocancel_ = payment_.callbacks.cancel
+			# we cancel the payment token as payment has been cancelled...
 			
-			except Exception as exception:
-				pass
+			if (paymenttoken_ != None):
+				chainid_ = payment_.chainid
+				senderwallet_ = payment_.sender.walletid
+				success_, response_ = XscroController.ackTransaction(self, chainid_, senderwallet_, paymenttoken_, 0)
+		
+			redirecttocancel_ = callbackroot_.cancel
 			
 			if (redirecttocancel_ != None):
-				
 				self.session.payment = None
+				
 				return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Payment Cancelled", "refresh":"redirect", "url":redirecttocancel_})
 			
 		return FunctionResponse(HTTP_PAGE_DOES_NOT_EXIST, None, None)
-			
+
 			
 	@endpoint(1, True, True, None, "gateway", "^payment.accept", "Accept Wallet Payment")
 	def paymentAccept(self, postData=None, appVars=None, params=None, content=None):
@@ -143,12 +147,20 @@ class PaymentController(XscroController):
 			chainid_ = payment_.chainid
 			paymenttoken_ = payment_.paymenttoken
 			senderwallet_ = payment_.sender.walletid
+			callbackroot_ = payment_.callbacks
 			
-			success_, response_ = XscroController.ackTransaction(self, chainid_, senderwallet_, paymenttoken_, 1)
-		
-			if (success_):
-				return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Payment Confirmed - Redirecting to client portal"})
-
+			if (callbackroot_ != None):
+			
+				redirecttosuccess_ = callbackroot_.success
+				redirecttofail_ = callbackroot_.fail
+				success_, response_ = XscroController.ackTransaction(self, chainid_, senderwallet_, paymenttoken_, 1)
+			
+				if (success_):
+					return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Payment Confirmed - Redirecting to client portal", "refresh":"redirect", "url":redirecttosuccess_})
+				
+				else:
+					return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Payment Failed - Redirecting to client portal", "refresh":"redirect", "url":redirecttofail_})
+				
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":response_})
 	
 	
@@ -182,16 +194,20 @@ class PaymentController(XscroController):
 
 		if (payment_.page != None):
 			pagename_ = payment_.page
+
+		callbackroot_ = payment_.callbacks
+
+		if (callbackroot_ != None):
+			
+			appVars.payment = payment_
+			content_ = self.loadContent(("payments/%s.html.py" % pagename_), appVars)
 		
-		appVars.payment = payment_
-		content_ = self.loadContent(("payments/%s.html.py" % pagename_), appVars)
-	
-		if (content_ != None):
-			contentout_ = content_
-		
-			if (self.isajax == False):
-				contentout_ = self.appendView("template_web.html", content_, appVars)
-		
-			return FunctionResponse(HTTP_OK, TYPE_HTML, contentout_)
+			if (content_ != None):
+				contentout_ = content_
+			
+				if (self.isajax == False):
+					contentout_ = self.appendView("template_web.html", content_, appVars)
+			
+				return FunctionResponse(HTTP_OK, TYPE_HTML, contentout_)
 		
 		return FunctionResponse(HTTP_PAGE_DOES_NOT_EXIST, None, None)

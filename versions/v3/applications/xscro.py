@@ -367,7 +367,17 @@ class XscroApplication(BaseClass, metaclass=Singleton):
 		configctrl_ = ApplicationManager().get("config")
 		
 		if (configctrl_ != None):
-			return configctrl_.chains
+			
+			chains_ = configctrl_.chains
+			out_ = []
+			
+			for chain_ in chains_:
+				config_ = configctrl_.configForChain(chain_)
+				recordtypes_ = config_.structure.keys()
+				if (XSCRO_RECORDID in recordtypes_):
+					out_.append(chain_)
+			
+			return out_
 		
 		return None
 	

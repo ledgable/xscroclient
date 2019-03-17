@@ -184,12 +184,15 @@ class AdminController(XscroController):
 	@endpoint(1, False, True, "ADMIN", "get", "^/api/admin/chains", "Get chains")
 	def getAdminChains(self, postData=None, appVars=None):
 		
-		chains_ = self.chains()
+		xscro_ = ApplicationManager().get("xscro")
 		out_ = []
-		
-		if (len(chains_) > 0):
-			for chain_ in chains_:
-				out_.append({"uid":chain_, "display":chain_})
+
+		if (xscro_ != None):
+			chains_ = xscro_.chains
+			
+			if (len(chains_) > 0):
+				for chain_ in chains_:
+					out_.append({"uid":chain_, "display":chain_})
 		
 		return FunctionResponse(HTTP_OK, TYPE_JSON, out_)
 	
@@ -224,7 +227,7 @@ class AdminController(XscroController):
 		
 		if (chainid_ == None):
 			xscro_ = ApplicationManager().get("xscro")
-			chains_ = self.chains()
+			chains_ = xscro_.chains
 			
 			if (len(chains_) > 0):
 				chainid_ = chains_[0]

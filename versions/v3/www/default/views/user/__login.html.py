@@ -3,7 +3,7 @@
 
 from modules import *
 
-application_ = ApplicationManager(self).get("config")
+application_ = ApplicationManager(self).get("xscro")
 chains_ = []
 chainid_ = None
 
