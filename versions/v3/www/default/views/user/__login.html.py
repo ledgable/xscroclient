@@ -14,7 +14,7 @@ if (application_ != None):
 
 </py>
 
-<section class="panel focus w500">
+<section class="panel blue focus w500">
 
 	<div class="top">
 		<span>User Login</span>
@@ -22,22 +22,36 @@ if (application_ != None):
 
 	<div class="content">
 
-		<form id="user__info" class="controldata">
-
-			<ul class="fields">
-
-				<li>
-					<div class=""><input name="walletid" type="text" class="w300" data-req="true" data-default="Wallet Address" value="Wallet Address" data-validator="anychar"></input><span class="field req">Wallet Address</span></div>
-				</li>
-
-				<li>
-					<div class=""><input name="password" type="password" class="w300" data-req="true" data-default="Password" value="Password"></input><span class="field req">Password</span></div>
-				</li>
+		<section class="grid_p clear">
 			
-				<li>
+			<aside>
 				
-					<div class="fullwidth"><span class="field req">Chain</span><select name="chainid" class="w300">
-						<option disabled="disabled">Select Chain</option>
+				<span class="icon company big"></span>
+			
+			</aside>
+			
+			<section>
+				
+				<h1>Welcome</h1>
+				
+				<p>Please provide your wallet credentials</p>
+
+				<form id="user__info" class="controldata">
+
+					<ul class="fields">
+
+						<li>
+							<div class=""><input name="walletid" type="text" class="w300" data-req="true" data-default="Wallet Address" value="Wallet Address" data-validator="anychar"></input><span class="field req">Wallet Address</span></div>
+						</li>
+
+						<li>
+							<div class=""><input name="password" type="password" class="w300" data-req="true" data-default="Password" value="Password"></input><span class="field req">Password</span></div>
+						</li>
+						
+						<li>
+						
+							<div class="fullwidth"><span class="field req">Chain</span><select name="chainid" class="w300">
+								<option disabled="disabled">Select Chain</option>
 
 <py>
 
@@ -49,19 +63,23 @@ for chain_ in chains_:
 
 </py>
 	
-					</select><span class="form-icon icon icon-chevron-down" aria-hidden="true">&nbsp;</span></div>
-				</li>
+							</select><span class="form-icon icon icon-chevron-down" aria-hidden="true">&nbsp;</span></div>
+						</li>
 
-			</ul>
+					</ul>
 
-			<ul class="clear">
-				<li class="action">
-					<span class="button green upper" data-event="{'action':'User.Security','event':'login','args':{}}">Login</span>
-				</li>
-			</ul>
+					<ul class="clear">
+						<li class="action">
+							<span class="button green upper" data-event="{'action':'User.Security','event':'login','args':{}}">Login</span>
+						</li>
+					</ul>
 
-		</form>
+				</form>
 
+			</section>
+		
+		</section>
+			
 	</div>
 
 </section>
