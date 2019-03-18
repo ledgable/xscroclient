@@ -380,10 +380,9 @@ class XscroController(NodeController):
 										newack_.ack = -1
 										shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, [newack_])
 										return {"status":STATUS_FAIL, "chainid":chainid_, "reason":"Insufficient balance", "code":newack_.ack}
-							
-								else:
-									shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, [newack_])
-									return {"status":STATUS_OK, "chainid":chainid_, "token":token, "code":code_}
+								
+								shadowhash_, discarded_, deferred_ = self.writeTransactionsToChain(chainid_, [newack_])
+								return {"status":STATUS_OK, "chainid":chainid_, "token":token, "code":code_}
 	
 		return None
 

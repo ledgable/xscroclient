@@ -18,14 +18,12 @@ class MainApp(BaseClass):
 	listenon_ = "0.0.0.0:9996"
 	server_ = "indexer.ledgable.com:9908"
 	
-	application_ = None
 	deviceid_ = None
 	devicepin_ = None
 	httpserver_ = None
 	httpports_ = None
 	datadir_ = None
 	register_ = None
-	xscro_ = None
 	applications_ = None
 	
 	@property
