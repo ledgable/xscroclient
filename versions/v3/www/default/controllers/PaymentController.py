@@ -1,13 +1,13 @@
 
 from www.__common.controllers.XscroController import *
 
-		payment_ = extdict({"transactionid":"12345", "chainid":"12345",
-			"recipient":{"walletid":"1234", "displayas":"Icecat NV"},
-			"sender":{"walletid":"0xE80A9aBF289549F5a0F1F6e56871aF88837ACEd5"},
-			"description":"This is a test transaction for data-sheet purchases - maybe some other text here",
-			"amount":30.0, "token":"icury",
-			"callbacks":{"success":"", "fail":"", "cancel":""}
-			})
+#		payment_ = extdict({"transactionid":"12345", "chainid":"12345",
+#			"recipient":{"walletid":"1234", "displayas":"Icecat NV"},
+#			"sender":{"walletid":"0xE80A9aBF289549F5a0F1F6e56871aF88837ACEd5"},
+#			"description":"This is a test transaction for data-sheet purchases - maybe some other text here",
+#			"amount":30.0, "token":"icury",
+#			"callbacks":{"success":"", "fail":"", "cancel":""}
+#			})
 
 #		strpayment_ = payment_.toJson()
 #		base64encoded_ = base64.b64encode(bytes(strpayment_, UTF8))
