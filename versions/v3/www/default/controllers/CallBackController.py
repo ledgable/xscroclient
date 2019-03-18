@@ -20,7 +20,11 @@ class CallBackController(XscroController):
 			
 			if (chainid_ in xscro_.containers.keys()):
 				
-				transactions_ = extlist.fromJson(json.loads(postData))
+				json_ = json.loads(postData)
+				self.log(json_)
+				
+				transactions_ = extlist.fromJson(json_)
+				
 				container_ = xscro_.containers[chainid_]
 				
 				if (transactions_ != None) and (len(transactions_) > 0):
