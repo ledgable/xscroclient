@@ -20,7 +20,8 @@ class CallBackController(XscroController):
 			
 			if (chainid_ in xscro_.containers.keys()):
 				
-				json_ = json.loads(postData)
+				encoded_ = postData.decode(UTF8)
+				json_ = json.loads(encoded_)
 				self.log(json_)
 				
 				transactions_ = extlist.fromJson(json_)
