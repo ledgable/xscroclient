@@ -49,7 +49,7 @@ class SiteLoader(BaseClass, metaclass=Singleton):
 						
 						if (config_.enabled == None) or (config_.enabled == 1):
 							
-							self.log("Loading site %s" % sitedir_)
+							# self.log("Loading site %s" % sitedir_)
 
 							appHandler_ = ApplicationHandler()
 							

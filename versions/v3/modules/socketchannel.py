@@ -262,9 +262,7 @@ class SocketConnectionOut(BaseClass):
 				file_ = ("%s/%s" % (self.certroot_, self.certificate_))
 
 				if (os.path.exists(file_)):
-					self.log("Using ssl certificate %s" % file_)
 					sslcontext_ = tSSL.DefaultOpenSSLContextFactory(file_, file_, sslmethod=SSL.TLSv1_2_METHOD)
-		
 					context_ = sslcontext_.getContext()
 					context_.set_options(SSL.TLSv1_2_METHOD | SSL.OP_NO_COMPRESSION | SSL.OP_CIPHER_SERVER_PREFERENCE)
 					context_.set_cipher_list(SSL_CIPHERS)
@@ -304,7 +302,7 @@ class SocketConnectionOut(BaseClass):
 				self.fnmessage_(messageId, content, socket)
 			
 			else:
-				self.log("No handler for message received %d" % (messageId))
+				pass
 	
 		except Exception as exception:
 			self.logException(exception)
@@ -317,7 +315,7 @@ class SocketConnectionOut(BaseClass):
 		if (self.fnconnect_):
 			self.fnconnect_(socket)
 		else:
-			self.log("No handler for connected")
+			pass
 
 		if (len(self.messagestosend_) > 0):
 			
@@ -341,7 +339,7 @@ class SocketConnectionOut(BaseClass):
 		if (self.fndisconnect_):
 			self.fndisconnect_(socket)
 		else:
-			self.log("No handler for disconnect")
+			pass
 
 
 	def disconnect(self):
@@ -571,9 +569,7 @@ class SocketServer(BaseClass):
 					file_ = ("%s/%s" % (self.certroot_, self.certificate_))
 
 					if (os.path.exists(file_)):
-						self.log("Using ssl certificate %s" % file_)
-						sslcontext_ = tSSL.DefaultOpenSSLContextFactory(file_, file_, sslmethod=SSL.TLSv1_2_METHOD)
-	
+						sslcontext_ = tSSL.DefaultOpenSSLContextFactory(file_, file_, sslmethod=SSL.TLSv1_2_METHOD)	
 						context_ = sslcontext_.getContext()
 						context_.set_options(SSL.TLSv1_2_METHOD | SSL.OP_NO_COMPRESSION | SSL.OP_CIPHER_SERVER_PREFERENCE)
 						context_.set_cipher_list(SSL_CIPHERS)

@@ -28,6 +28,15 @@ App.Payments = {
 		
 	},
 	
+	completed : function(oEvent, oArgs) {
+		
+		var oData = {};
+		
+		var oRequest= {actions:[{action:'payment.completed', data:oData}], jw:App.Core.Security.code};
+		$('*').triggerHandler('handle-app', oRequest);
+		
+	},
+	
 	login : function(oEvent, oArgs) {
 		
 		var oData = $('*').triggerHandler('do-formdata', {'target':'wallet__info'});

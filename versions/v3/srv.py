@@ -15,7 +15,7 @@ class MainApp(BaseClass):
 	root_ = os.path.dirname(os.path.abspath(__file__)) + "/./"
 	listening_ = False
 	
-	listenon_ = "0.0.0.0:9996"
+	listenon_ = "0.0.0.0:9998"
 	server_ = "indexer.ledgable.com:9908"
 	
 	deviceid_ = None
@@ -88,6 +88,7 @@ class MainApp(BaseClass):
 		
 		self.httpports_ = None
 		self.listening_ = True
+		self.usenat_ = False
 		
 		def signal_handler(*args):
 			try:
@@ -100,7 +101,7 @@ class MainApp(BaseClass):
 			signal(sig, signal_handler)
 
 		try:
-			opts, args = getopt.getopt(argv,"hl:d:p:s:o:r:",["help","listen=","deviceid=","pin=","server=","httpport=","register=", "debug"])
+			opts, args = getopt.getopt(argv,"hl:d:p:s:o:r:",["help","listen=","deviceid=","pin=","server=","httpport=","register=","debug","usenat"])
 		
 		except getopt.GetoptError as e:
 			self.log("Issue with arguments - quitting")
@@ -124,6 +125,9 @@ class MainApp(BaseClass):
 				self.server_ = arg
 			elif opt in ("--debug"):
 				RawVars().debug_ = True
+			elif opt in ("--usenat"):
+				self.usenat_ = True
+
 
 		if (self.listenon_ == None):
 			
@@ -186,14 +190,20 @@ class MainApp(BaseClass):
 
 			if (self.httpports_ != None):
 				self.httpserver_ = HttpManager(self, self.httpports_)
-			
+	
+			self.applications_ = ApplicationManager(self)
 			
 			configmanager_ = ConfigController(self, self.server)
 			configmanager_.start()
 			
-			self.applications_ = ApplicationManager(self)
-			
 			ApplicationManager(self).start("config", configmanager_)
+									
+			if (self.usenat_):
+				natmapper_ = NatMapper(self)
+				port_ = self.listenon_.split(":")[1]
+				natmapper_.addPort(port_)
+				ApplicationManager(self).start("nat", natmapper_)
+			
 			ApplicationManager(self).start("datanode", DataNodeApplication(self))
 			ApplicationManager(self).start("xscro", XscroApplication(self))
 

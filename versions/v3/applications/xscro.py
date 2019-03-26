@@ -169,6 +169,7 @@ class XscroApplication(BaseClass, metaclass=Singleton):
 		if (container_ != None):
 			
 			xscroTransactions_ = []
+			notifySocket_ = False
 			
 			for transaction_ in transactions:
 				
@@ -177,7 +178,8 @@ class XscroApplication(BaseClass, metaclass=Singleton):
 				if (classid_ == XSCRO_RECORDID):
 						
 					uid_ = transaction_.uid
-					
+					notifySocket_ = True
+
 					if (uid_ != None):
 						container_.pending_[uid_] = transaction_
 			
@@ -186,12 +188,14 @@ class XscroApplication(BaseClass, metaclass=Singleton):
 					walletid_ = transaction_.wallet
 					wallet_ = container_.walletFor(walletid_)
 					wallet_.digest_ = transaction_.passtoken
-						
+					notifySocket_ = True
+
 				elif (classid_ == XSCRO_ACKID):
 						
 					uid_ = transaction_.uid
 					ack_ = int(transaction_.default("ack", 0))
-					
+					notifySocket_ = True
+
 					if (uid_ in container_.pending_.keys()):
 						
 						# remove the transaction from the wait queue...
@@ -217,10 +221,10 @@ class XscroApplication(BaseClass, metaclass=Singleton):
 							pass # deny transaction
 		
 			if (len(xscroTransactions_) > 0):
-								
 				container_.append(xscroTransactions_)
-				
 				self.calculateStats(chainid_)
+				
+			if (notifySocket_):
 				self.sendToSocketListeners(dict({"transactions":xscroTransactions_, "target":{"domain":"Xscro.Notify", "event":"processTransactions"}}))
 
 

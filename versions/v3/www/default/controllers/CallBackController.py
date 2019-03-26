@@ -20,7 +20,7 @@ class CallBackController(XscroController):
 			
 			if (chainid_ in xscro_.containers.keys()):
 				
-				encoded_ = postData.decode(UTF8)				
+				encoded_ = postData.decode(UTF8)
 				transactions_ = extlist.fromJson(encoded_)
 				
 				container_ = xscro_.containers[chainid_]
@@ -29,9 +29,7 @@ class CallBackController(XscroController):
 					
 					for transaction_ in transactions_:
 						
-						self.log(transaction_)
-						
-						recipientid_ = transaction_.sender
+						recipientid_ = transaction_.id_sender
 						transactionid_ = transaction_.transactionid
 						volume_ = float(Decimal(transaction_.volume)) * MULTIPLIER
 						price_ = 0.0

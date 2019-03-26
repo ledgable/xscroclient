@@ -471,9 +471,7 @@ class ChainController(BaseClass):
 	# be aware this is (potentially) called on a separate thread !!
 
 	def messageReceived(self, messageId, content=None, socket=None):
-	
-		self.log("Message received %d" % messageId)
-	
+		
 		if (messageId in [SOCKET_MESSAGE_INDEX,
 						  SOCKET_MESSAGE_BLOCK,
 						  SOCKET_MESSAGE_HASHLIST,
@@ -709,7 +707,6 @@ class ChainController(BaseClass):
 		if (partners_ != None) and (len(partners_) > 0):
 		
 			self.log("Notifying replication partners of message")
-			self.log("Sending message to %s" % partners_)
 			
 			transactionid_ = self.uniqueId
 			newHash_ = chain_.shadowHash

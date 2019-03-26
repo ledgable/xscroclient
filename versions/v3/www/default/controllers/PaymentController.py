@@ -136,6 +136,27 @@ class PaymentController(XscroController):
 				return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":msg_})
 
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Something critical went wrong"})
+	
+	
+	@endpoint(1, True, True, None, "gateway", "^payment.completed", "Return to vendor site")
+	def paymentCompleted(self, postData=None, appVars=None, params=None, content=None):
+	
+		payment_ = None
+		
+		if (self.session.payment != None):
+			payment_ = self.session.payment
+	
+		if (payment_ != None):
+			callbackroot_ = payment_.callbacks
+			
+			if (callbackroot_ != None) and (payment_.ack == 1):
+				
+				redirecttosuccess_ = callbackroot_.success
+				
+				if (redirecttosuccess_ != None):
+					return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Redirecting to client portal", "refresh":"redirect", "url":redirecttosuccess_})
+
+		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Something critical went wrong"})
 			
 
 	@endpoint(1, True, True, None, "gateway", "^payment.confirm", "Confirm Wallet Payment")
@@ -155,12 +176,14 @@ class PaymentController(XscroController):
 			
 			if (callbackroot_ != None):
 			
-				redirecttosuccess_ = callbackroot_.success
 				redirecttofail_ = callbackroot_.fail
 				success_, response_ = XscroController.ackTransaction(self, chainid_, senderwallet_, paymenttoken_, 1)
 			
 				if (success_):
-					return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Payment Confirmed - Redirecting to client portal", "refresh":"redirect", "url":redirecttosuccess_})
+					payment_.page = "finish"
+					payment_.ack = 1
+					self.session.payment = payment_
+					return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Payment Confirmed", "refresh":"window"})
 				
 				else:
 					return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Payment Failed - Redirecting to client portal", "refresh":"redirect", "url":redirecttofail_})

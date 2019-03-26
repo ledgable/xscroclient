@@ -172,8 +172,10 @@ class XscroController(NodeController):
 				container_ = xscro_.containers[chainid_]
 				wallet_ = container_.walletFor(senderid)
 				
-				# if volume or price is < 0 then abort
+				if (senderid == recipientid):
+					return False, None, "Cannot send to the same address as the recipient"
 				
+				# if volume or price is < 0 then abort
 				volume_ = float(volume)
 				if (volume_ < 0):
 					return False, None, "Volume invalid - must be > 0"

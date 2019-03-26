@@ -221,7 +221,7 @@ class AppRoutes(BaseClass):
 	
 	def add(self, weight, hidden, tracksession, auth, qualname, method, controller, function, regex, description):
 		
-		self.log("Added function %s:%s:%s" % (qualname, controller, function))
+		# self.log("Added function %s:%s:%s" % (qualname, controller, function))
 		
 		newroute_ = Definition(hidden, tracksession, auth, method, controller, function, regex, description, weight)
 		
@@ -339,7 +339,7 @@ class ControllerManager(BaseClass):
 										if (issubclass(modulefound_, HTTPController)):
 											
 											self.controllers_[modulename_] = module_
-											self.log("Loading Controller - %s" % file_)
+											# self.log("Loading Controller - %s" % file_)
 
 											for fnname_ in dir(modulefound_):
 												fn_ = getattr(modulefound_, fnname_)
@@ -355,7 +355,7 @@ class ControllerManager(BaseClass):
 											appinstance_ = modulefound_(self)
 											self.applications_[fnname_] = appinstance_
 											
-											self.log("Application Loaded - %s" % fnname_)
+											# self.log("Application Loaded - %s" % fnname_)
 
 			except Exception as inst:
 				exc_type, exc_obj, exc_tb = sys.exc_info()
