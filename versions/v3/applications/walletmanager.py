@@ -236,7 +236,7 @@ class WalletManager(BaseClass):
 	
 		volume_ = 0.0
 		
-		transactions_ = self.getChildrenOfParent("0")
+		transactions_ = self.getChildrenOfToken("0")
 		walletids_ = []
 		
 		for transaction_ in transactions_:
