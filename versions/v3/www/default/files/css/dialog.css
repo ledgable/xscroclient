@@ -119,8 +119,9 @@
 
 .dialogbox_content .pages ul.pips {
 	position: relative;
-	height: 100%;
-	margin: 0px 0px 0px 30px;
+	height: auto;
+	margin: 0px;
+	margin-bottom: 40px;
 }
 
 .dialogbox_content .pages ul.pips > li {

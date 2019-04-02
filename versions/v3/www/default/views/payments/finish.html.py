@@ -57,7 +57,7 @@ if (payment_ == None):
 	
 		<ul class="clear">
 			<li class="action right">
-				<span class="button green upper" data-event="{'action':'Payments','event':'finished','args':{}}">Return to Vendor</span>
+				<span class="button green upper" data-event="{'action':'Payments','event':'completed','args':{}}">Return to Vendor</span>
 			</li>
 		</ul>
 	
