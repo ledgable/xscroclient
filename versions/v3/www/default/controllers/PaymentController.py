@@ -1,4 +1,7 @@
 
+from modules.helpers import *
+from urllib.parse import unquote
+
 from www.__common.controllers.XscroController import *
 
 #		payment_ = extdict({"transactionid":"12345", "chainid":"12345",
@@ -190,17 +193,62 @@ class PaymentController(XscroController):
 				
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":response_})
 	
-	
+
+	@endpoint(96, True, True, None, "post", "^/pay", "Post a payment")
+	def payRedirectPage(self, postData=None, appVars=None):
+		
+		datain_ = unquote(postData.decode(UTF8))
+		
+		splitout_ = datain_.split("&")
+		paramsin_ = extdict()
+		
+		if (len(splitout_) > 0):
+			for string_ in splitout_:
+				key_, value_ = string_.split("=")
+				value_ = unquote_plus(value_)
+				paramsin_[key_] = value_
+			
+		payment_ = extdict({"transactionid":paramsin_.transactionid, "chainid":paramsin_.chainid,
+			"recipient":{"walletid":paramsin_.recipientwallet, "displayas":paramsin_.recipientdisplay},
+			"sender":{"walletid":paramsin_.default("sender", "")},
+			"description":paramsin_.description,
+			"amount":float(paramsin_.amount), "token":paramsin_.currency,
+			"callbacks":{"success":paramsin_.callbacksuccess, "fail":paramsin_.callbackfailure, "cancel":paramsin_.callbackcancel}
+			})
+		
+		strpayment_ = payment_.toJson()
+		pagename_ = "default"
+		payment_.page = "default"
+		self.session.payment = payment_
+
+		callbackroot_ = payment_.callbacks
+		
+		if (callbackroot_ != None):
+			
+			appVars.payment = payment_
+			content_ = self.loadContent(("payments/%s.html.py" % pagename_), appVars)
+			
+			if (content_ != None):
+				contentout_ = content_
+				
+				if (self.isajax == False):
+					contentout_ = self.appendView("template_web.html", content_, appVars)
+				
+				return FunctionResponse(HTTP_OK, TYPE_HTML, contentout_)
+		
+		return FunctionResponse(HTTP_PAGE_DOES_NOT_EXIST, None, None)
+
+			
 	@endpoint(97, True, True, None, "get", "^/pay", "Fetch payment page by name")
 	def payPage(self, postData=None, appVars=None):
 
 		payment_ = None
-
+		
 		if (appVars.payment != None):
 			
 			try:
-				encoded_ = appVars.payment
-				paymentjson_ = base64.b64decode(encoded_).decode(UTF8)
+				encoded_ = appVars.payment				
+				paymentjson_ = decode_base64(bytes(encoded_, UTF8)).decode(UTF8)
 				
 				payment_ = extdict.fromJson(paymentjson_)
 				payment_.page = "default"
@@ -208,6 +256,7 @@ class PaymentController(XscroController):
 				self.session.payment = payment_
 			
 			except Exception as exception:
+				self.log(exception)
 				self.session.payment = None
 			
 		else:

@@ -31,6 +31,44 @@ def md5(stringin=None):
 	kpt1_.update(stringin.encode(UTF8))
 	return kpt1_.hexdigest()
 
+def decode_base64(data, altchars=b'+/'):
+	"""Decode base64, padding being optional.
+		
+		:param data: Base64 data as an ASCII byte string
+		:returns: The decoded byte string.
+		
+		"""
+	data = re.sub(rb'[^a-zA-Z0-9%s]+' % altchars, b'', data)  # normalize
+	missing_padding = len(data) % 4
+	if missing_padding:
+		data += b'='* (4 - missing_padding)
+	return base64.b64decode(data, altchars)
+
+
+def sanitize(value):
+
+	strver_ = ("%s" % value)
+	
+	length_ = len(strver_)
+	dpoint_ = strver_.find(".")
+	
+	if (dpoint_ == -1):
+		return strver_
+			
+	out_ = strver_
+	stop_ = False
+	
+	while (not stop_):
+		if (out_[-1] in ["0", "."]):
+			if (len(out_) > dpoint_):
+				out_ = out_[:-1]
+			else:
+				stop_ = True
+		else:
+			stop_ = True
+
+	return out_
+
 
 def funcToVar():
 	

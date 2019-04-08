@@ -871,7 +871,16 @@ class MyHandler(CoreHandler):
 						self.end_headers()
 						self.close_connection = 1						
 						return
-							
+
+					elif (exitcode_ in [HTTP_REDIRECT, HTTP_REDIRECT_AND_UPDATE, HTTP_TEMP_REDIRECT]):
+						
+						self.send_response(exitcode_)
+						self.send_header('Location', response_.content)								
+						self.send_header("Content-Length", "0")
+						self.end_headers()
+						self.close_connection = 1
+						return
+					
 					elif (exitcode_ in [HTTP_OK, HTTP_NOT_ACCEPTABLE]):
 						
 						contentout_ = self.reformat(response_.content, format_)
@@ -1001,7 +1010,9 @@ class MyHandler(CoreHandler):
 							# DENY
 							# SAMEORIGIN
 						
+							self.send_header("X-Frame-Options", "ALLOW FROM https://iceclog.com")
 							self.send_header("X-Frame-Options", "SAMEORIGIN")
+
 							# prevent Cross Site Scripting etc
 							self.send_header("X-XSS-Protection", "1; mode=block")
 							self.send_header("X-Content-Type-Options", "nosniff")

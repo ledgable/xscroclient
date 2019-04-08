@@ -39,9 +39,9 @@ if (payment_ == None):
 						
 						<li><span class="highlight"><pre><py>print(payment_.description, file=stdout)</py></pre></span></li>
 						
-						<li><span class="highlight">To Pay: <strong class="right"><py>print(default("%f %s" % (payment_.amount, payment_.token.upper()), "--"), file=stdout)</py></strong></span></li>
+						<li><span class="highlight">To Pay: <strong class="right"><py>print(default("%s %s" % (sanitize(payment_.amount), payment_.token.upper()), "--"), file=stdout)</py></strong></span></li>
 						
-						<li><span class="highlight">Balance: <strong class="right"><py>print(default("%f %s" % (payment_.remaining, payment_.token.upper()), "--"), file=stdout)</py></strong></span></li>
+						<li><span class="highlight">Balance: <strong class="right"><py>print(default("%s %s" % (sanitize(payment_.remaining), payment_.token.upper()), "--"), file=stdout)</py></strong></span></li>
 						
 						<li>Payment Completed Successfully</li>
 

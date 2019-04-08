@@ -15,3 +15,4 @@ class FunctionResponse(BaseClass):
 		self.lastmodified = None
 		self.isbinary = isbinary
 		self.cachetype = "public"
+		self.headers = {}
