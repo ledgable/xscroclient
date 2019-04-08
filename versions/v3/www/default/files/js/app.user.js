@@ -53,6 +53,29 @@ App.User.Security = {
 		
 	},
 	
+	newuser : function(oEvent, oArgs) {
+		
+		var oData = $('*').triggerHandler('do-formdata', {'target':'user__info'});
+		
+		var md5pass = $.md5(oData.password);
+		var md5pass_confirm = $.md5(oData.confirm_password);
+		
+		if (md5pass != md5pass_confirm) {
+			App.Notify.showMessage(false, "The passwords do not match");
+			return;
+			
+		} else if (md5pass == $.md5("Password")) {
+			App.Notify.showMessage(false, "You must specify a password");
+			return;
+		}
+		
+		oData.password = md5pass;
+		
+		var oRequest = {actions:[{action:'user.newuser',data:oData}], jw:App.Core.Security.code};
+		$('*').triggerHandler('handle-app', oRequest);
+		
+	},
+	
 	logout : function(oEvent, oArgs) {
 		
 		var oData = {};

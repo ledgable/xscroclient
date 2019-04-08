@@ -17,24 +17,24 @@ if (application_ != None):
 <section class="panel blue focus w500">
 
 	<div class="top">
-		<span>User Login</span>
+		<span>User Signup</span>
 	</div>
 
 	<div class="content">
 
 		<section class="grid_p clear">
-			
+
 			<aside>
-				
+
 				<span class="icon company big"></span>
-			
+
 			</aside>
-			
+
 			<section>
-				
+
 				<h1>Welcome</h1>
-				
-				<p>Please provide your wallet credentials</p>
+
+				<p>Create a new wallet</p>
 
 				<form id="user__info" class="controldata">
 
@@ -47,9 +47,13 @@ if (application_ != None):
 						<li>
 							<div class=""><input name="password" type="password" class="w300" data-req="true" data-default="Password" value="Password"></input><span class="field req">Password</span></div>
 						</li>
-						
+
 						<li>
-						
+							<div class=""><input name="confirm_password" type="password" class="w300" data-req="true" data-default="Password" value="Password"></input><span class="field req">Password</span></div>
+						</li>
+
+						<li>
+
 							<div class="fullwidth"><span class="field req">Chain</span><select name="chainid" class="w300">
 								<option disabled="disabled">Select Chain</option>
 
@@ -62,7 +66,7 @@ for chain_ in chains_:
 		print("""<option value="%s">%s</option>""" % (chain_, chain_), file=stdout)
 
 </py>
-	
+
 							</select><span class="form-icon icon icon-chevron-down" aria-hidden="true">&nbsp;</span></div>
 						</li>
 
@@ -70,17 +74,17 @@ for chain_ in chains_:
 
 					<ul class="clear">
 						<li class="action">
-							<span class="button green upper" data-event="{'action':'User.Security','event':'login','args':{}}">Login</span>
-							<span class="button pagenav blue upper" data-url="/user/newuser">Signup</span>
+							<span class="button orange pagenav upper" data-url="/user">Login</span>
+							<span class="button green upper" data-event="{'action':'User.Security','event':'newuser','args':{}}">Create Wallet</span>
 						</li>
 					</ul>
 
 				</form>
 
 			</section>
-		
+
 		</section>
-			
+
 	</div>
 
 </section>

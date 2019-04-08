@@ -231,7 +231,12 @@ class UserController(XscroController):
 		content_ = None
 	
 		if (username_ == None):
-			content_ = self.loadContent("user/__login.html.py", appVars)
+			
+			if (pagename in ["newuser"]):
+				content_ = self.loadContent(("user/%s.html.py" % (pagename)), appVars)
+
+			else:
+				content_ = self.loadContent("user/__login.html.py", appVars)
 		
 		else:
 			if (pagename == None) or (pagename == ""):

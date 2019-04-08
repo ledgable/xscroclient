@@ -90,7 +90,7 @@ App.Security.User = {
 		$('*').triggerHandler('handle-app', oRequest);
 		
 	},
-	
+		
 	login : function(oEvent, oArgs) {
 		
 		var oData = $('*').triggerHandler('do-formdata', {'target':'user__info'});
