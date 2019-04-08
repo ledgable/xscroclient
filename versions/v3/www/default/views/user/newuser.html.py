@@ -49,7 +49,7 @@ if (application_ != None):
 						</li>
 
 						<li>
-							<div class=""><input name="confirm_password" type="password" class="w300" data-req="true" data-default="Password" value="Password"></input><span class="field req">Password</span></div>
+							<div class=""><input name="confirm_password" type="password" class="w300" data-req="true" data-default="Password" value="Password"></input><span class="field req">Confirm Password</span></div>
 						</li>
 
 						<li>
