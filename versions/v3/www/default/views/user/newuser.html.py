@@ -17,7 +17,7 @@ if (application_ != None):
 <section class="panel blue focus w500">
 
 	<div class="top">
-		<span>User Signup</span>
+		<span>User Registration</span>
 	</div>
 
 	<div class="content">
