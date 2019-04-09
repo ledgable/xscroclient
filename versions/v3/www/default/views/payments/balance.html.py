@@ -74,7 +74,7 @@ if (amount_ > balance_):
 
 <py>
 if (amount_ > balance_):
-	print("""<span class="button upper">Begin Payment</span>""", file=stdout)
+	print("""<span class="button red upper">Begin Payment</span>""", file=stdout)
 else:
 	print("""<span class="button green upper" data-event="{'action':'Payments','event':'pay','args':{}}">Begin Payment</span>""", file=stdout)
 </py>

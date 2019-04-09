@@ -59,7 +59,7 @@ if (payment_ == None):
 
 		<ul class="clear">
 			<li class="action right">
-				<span class="button orange upper" data-event="{'action':'Payments','event':'cancel','args':{}}">Cancel</span>
+				<span class="button red upper" data-event="{'action':'Payments','event':'cancel','args':{}}">Cancel</span>
 				<span class="button green upper" data-event="{'action':'Payments','event':'confirm','args':{}}">Confirm Payment</span>
 			</li>
 		</ul>
