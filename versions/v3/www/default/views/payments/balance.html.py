@@ -70,11 +70,11 @@ if (amount_ > balance_):
 
 		<ul class="clear">
 			<li class="action right">
-				<span class="button orange upper" data-event="{'action':'Payments','event':'cancel','args':{}}">Cancel</span>
+				<span class="button red upper" data-event="{'action':'Payments','event':'cancel','args':{}}">Cancel</span>
 
 <py>
 if (amount_ > balance_):
-	print("""<span class="button red upper">Begin Payment</span>""", file=stdout)
+	print("""<span class="button upper">Begin Payment</span>""", file=stdout)
 else:
 	print("""<span class="button green upper" data-event="{'action':'Payments','event':'pay','args':{}}">Begin Payment</span>""", file=stdout)
 </py>

@@ -85,7 +85,7 @@ class PaymentController(XscroController):
 		
 		if (self.session.payment != None):
 			payment_ = self.session.payment
-		
+			
 		if (payment_ != None):
 			redirecttocancel_ = None
 			callbackroot_ = payment_.callbacks
