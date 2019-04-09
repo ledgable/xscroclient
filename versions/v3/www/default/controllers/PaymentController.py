@@ -151,6 +151,7 @@ class PaymentController(XscroController):
 		
 		if (self.session.payment != None):
 			payment_ = self.session.payment
+			self.session.payment = None
 	
 		if (payment_ != None):
 			callbackroot_ = payment_.callbacks
@@ -199,7 +200,7 @@ class PaymentController(XscroController):
 
 	@endpoint(96, True, True, None, "post", "^/pay", "Post a payment")
 	def payRedirectPage(self, postData=None, appVars=None):
-				
+		
 		if (self.session.payment == None):
 		
 			datain_ = unquote(postData.decode(UTF8))
