@@ -34,9 +34,6 @@ class PaymentController(XscroController):
 			chainid_ = params.chainid
 			
 			nonce_ = "%s:%s:%s" % (chainid_, digest_, walletid_)
-
-			self.log(nonce_)
-			self.log(payment_)
 			
 			kpt1_ = hashlib.md5()
 			kpt1_.update(nonce_.encode(UTF8))
@@ -63,8 +60,10 @@ class PaymentController(XscroController):
 							if (success_):
 								payment_.sender = {"walletid":walletid_}
 								payment_.page = "balance"
-								payment_.balance = wallet_.balance
+								payment_.balance = float(wallet_.balance)
 								payment_.remaining = (wallet_.balance - payment_.amount)
+								
+								self.log(payment_)
 								
 								self.session.payment = payment_
 
@@ -243,7 +242,8 @@ class PaymentController(XscroController):
 					"sender":{"walletid":paramsin_.default("sender", "")},
 					"description":paramsin_.description,
 					"amount":float(paramsin_.amount), "token":paramsin_.currency,
-					"callbacks":{"success":paramsin_.callbacksuccess, "fail":paramsin_.callbackfailure, "cancel":paramsin_.callbackcancel}
+					"callbacks":{"success":paramsin_.callbacksuccess, "fail":paramsin_.callbackfailure, "cancel":paramsin_.callbackcancel},
+					"pagename":"default"
 					})
 			
 			self.session.payment = payment_
