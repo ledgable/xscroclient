@@ -230,13 +230,12 @@ class PaymentController(XscroController):
 					transactionid = paramsin_.transactionid,
 					chainid = paramsin_.chainid,
 					recipient = {"walletid":paramsin_.recipientwallet, "displayas":paramsin_.recipientdisplay},
-					sender = {"walletid":paramsin_.default("sender", "")},
 					description = paramsin_.description,
 					amount = float(paramsin_.amount),
 					token = paramsin_.currency,
 					callbacks = {"success":paramsin_.callbacksuccess, "fail":paramsin_.callbackfailure, "cancel":paramsin_.callbackcancel}
 					)
-
+			
 			else:
 			
 				payment_ = extdict({"transactionid":paramsin_.transactionid, "chainid":paramsin_.chainid,
