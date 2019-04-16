@@ -63,8 +63,6 @@ class PaymentController(XscroController):
 								payment_.balance = float(wallet_.balance)
 								payment_.remaining = (wallet_.balance - payment_.amount)
 								
-								self.log(payment_)
-								
 								self.session.payment = payment_
 
 								return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Logged In", "refresh":"window"})
@@ -113,9 +111,7 @@ class PaymentController(XscroController):
 		payment_ = self.session.payment
 		
 		if (payment_ != None):
-		
-			self.log(payment_)
-		
+			
 			senderwallet_ = payment_.sender.walletid
 			chainid_ = payment_.chainid
 			transactionid_ = payment_.transactionid
