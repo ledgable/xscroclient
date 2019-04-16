@@ -182,7 +182,9 @@ class PaymentController(XscroController):
 			callbackroot_ = payment_.callbacks
 			
 			if (callbackroot_ != None):
-			
+				
+				redirecttonotify_ = callbackroot_.notify
+				
 				redirecttofail_ = callbackroot_.fail
 				success_, response_ = XscroController.ackTransaction(self, chainid_, senderwallet_, paymenttoken_, 1)
 			
@@ -201,18 +203,21 @@ class PaymentController(XscroController):
 	@endpoint(96, True, True, None, "post", "^/pay", "Post a payment")
 	def payRedirectPage(self, postData=None, appVars=None):
 		
-		if (self.session.payment == None):
+		datain_ = unquote(postData.decode(UTF8))
 		
-			datain_ = unquote(postData.decode(UTF8))
+		paramsin_ = extdict()
+
+		if (datain_ != None):
 			
 			splitout_ = datain_.split("&")
-			paramsin_ = extdict()
 			
 			if (len(splitout_) > 0):
 				for string_ in splitout_:
 					key_, value_ = string_.split("=")
 					value_ = unquote_plus(value_)
 					paramsin_[key_] = value_
+	
+		if (self.session.payment == None) or (len(paramsin_) > 0):
 			
 			payment_ = extdict({"transactionid":paramsin_.transactionid, "chainid":paramsin_.chainid,
 				"recipient":{"walletid":paramsin_.recipientwallet, "displayas":paramsin_.recipientdisplay},
