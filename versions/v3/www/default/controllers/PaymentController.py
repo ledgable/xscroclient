@@ -114,6 +114,8 @@ class PaymentController(XscroController):
 		
 		if (payment_ != None):
 		
+			self.log(payment_)
+		
 			senderwallet_ = payment_.sender.walletid
 			chainid_ = payment_.chainid
 			transactionid_ = payment_.transactionid
