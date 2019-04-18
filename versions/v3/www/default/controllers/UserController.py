@@ -205,7 +205,7 @@ class UserController(XscroController):
 						wallet_ = container_.wallets[walletid_]
 						balance_ = wallet_.balance
 				
-			return FunctionResponse(HTTP_OK, TYPE_JSON, {"wallets":[{"walletid":walletid_, "balance":balance_}])
+			return FunctionResponse(HTTP_OK, TYPE_JSON, {"wallets":[{"walletid":walletid_, "balance":balance_}]})
 
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"wallets":[]})
 
