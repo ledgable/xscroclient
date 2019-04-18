@@ -258,6 +258,8 @@ class PaymentController(XscroController):
 					"pagename":"default"
 					})
 			
+			self.log(payment_)
+			
 			self.session.payment = payment_
 
 		return self.payPage(postData, appVars)
