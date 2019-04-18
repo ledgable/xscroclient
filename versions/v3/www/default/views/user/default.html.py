@@ -26,7 +26,7 @@ chainid_ = self.session.chainid
 	<ul class="steps">
 		
 		<li class="selected">
-			<pyinclude>views/admin/__overview.html.py</pyinclude>
+			<pyinclude>views/user/__overview.html.py</pyinclude>
 		</li>
 
 		<li>
