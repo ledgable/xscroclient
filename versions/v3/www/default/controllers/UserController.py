@@ -191,7 +191,7 @@ class UserController(XscroController):
 			tokentype_, nonce_ = username_.split(":")
 			chainid_, walletid_, digest_ = nonce_.split(",")
 		
-			balance_ = 0.0				
+			balance_ = 0.0
 			xscro_ = ApplicationManager().get("xscro")
 			
 			if (xscro_ != None):
@@ -207,7 +207,7 @@ class UserController(XscroController):
 				
 			return FunctionResponse(HTTP_OK, TYPE_JSON, {"wallets":[{"walletid":walletid_, "balance":balance_}])
 
-		return FunctionResponse(HTTP_OK, TYPE_JSON, {"wallets":[])
+		return FunctionResponse(HTTP_OK, TYPE_JSON, {"wallets":[]})
 
 	
 	@endpoint(1, False, True, "WALLET", "get", "^/api/user/transactions/(?P<count>[0-9][^-&*/\%]*)", "Get recent transactions")
