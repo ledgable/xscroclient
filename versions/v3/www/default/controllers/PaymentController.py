@@ -95,10 +95,10 @@ class PaymentController(XscroController):
 				senderwallet_ = payment_.sender.walletid
 				success_, response_ = XscroController.ackTransaction(self, chainid_, senderwallet_, paymenttoken_, 0)
 		
+			self.session.payment = None			
 			redirecttocancel_ = callbackroot_.cancel
 			
 			if (redirecttocancel_ != None):
-				self.session.payment = None
 				
 				return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":1, "mode":"notify", "message":"Payment Cancelled", "refresh":"redirect", "url":redirecttocancel_})
 			
@@ -234,16 +234,22 @@ class PaymentController(XscroController):
 	
 				else:
 
-					transactionid_ = paramsin_.default("transactionid", self.uniqueId)
+					if (paramsin_.transactionid == None) and (payment_.transactionid != None):
+					
+						# we continue with the old transaction
+						pass
+					
+					else:
+						transactionid_ = paramsin_.default("transactionid", self.uniqueId)
 
-					payment_ = extdict({"transactionid":transactionid_, "chainid":paramsin_.chainid,
-						"recipient":{"walletid":paramsin_.recipientwallet, "displayas":paramsin_.recipientdisplay},
-						"sender":{"walletid":paramsin_.default("sender", "")},
-						"description":paramsin_.description,
-						"amount":float(paramsin_.amount), "token":paramsin_.currency,
-						"callbacks":{"success":paramsin_.callbacksuccess, "fail":paramsin_.callbackfailure, "cancel":paramsin_.callbackcancel},
-						"pagename":"default"
-						})
+						payment_ = extdict({"transactionid":transactionid_, "chainid":paramsin_.chainid,
+							"recipient":{"walletid":paramsin_.recipientwallet, "displayas":paramsin_.recipientdisplay},
+							"sender":{"walletid":paramsin_.default("sender", "")},
+							"description":paramsin_.description,
+							"amount":float(paramsin_.amount), "token":paramsin_.currency,
+							"callbacks":{"success":paramsin_.callbacksuccess, "fail":paramsin_.callbackfailure, "cancel":paramsin_.callbackcancel},
+							"pagename":"default"
+							})
 
 			else:
 			
