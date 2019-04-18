@@ -26,7 +26,7 @@ chainid_ = self.session.chainid
 				<span class="fullwidth">
 					<span class="w100 column"></span>
 					<span class="w250 column">Wallet</span>
-					<span class="wauto column">Balance</span>
+					<span class="wauto column tright">Balance</span>
 				</span>
 
 			</div>
