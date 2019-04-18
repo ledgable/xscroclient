@@ -179,6 +179,36 @@ class UserController(XscroController):
 		
 		return FunctionResponse(HTTP_OK, TYPE_JSON, {"status":0, "mode":"notify", "message":"Incorrect username/password"})
 
+			
+	@endpoint(1, False, True, "WALLET", "get", "^/api/user/balance", "Get user balance")
+	def getUserBalance(self, postData=None, appVars=None):
+		
+		transactions_ = []
+		username_ = self.session.username
+		
+		if (username_ != None):
+			
+			tokentype_, nonce_ = username_.split(":")
+			chainid_, walletid_, digest_ = nonce_.split(",")
+		
+			balance_ = 0.0				
+			xscro_ = ApplicationManager().get("xscro")
+			
+			if (xscro_ != None):
+				
+				if (chainid_ in xscro_.containers.keys()):
+					
+					container_ = xscro_.containers[chainid_]
+					walletkeys_ = list(container_.wallets.keys())
+					
+					if (walletid_ in walletkeys_):
+						wallet_ = container_.wallets[walletid_]
+						balance_ = wallet_.balance
+				
+			return FunctionResponse(HTTP_OK, TYPE_JSON, {"wallets":[{"walletid":walletid_, "balance":balance_}])
+
+		return FunctionResponse(HTTP_OK, TYPE_JSON, {"wallets":[])
+
 	
 	@endpoint(1, False, True, "WALLET", "get", "^/api/user/transactions/(?P<count>[0-9][^-&*/\%]*)", "Get recent transactions")
 	def getUserTransactions(self, postData=None, appVars=None, count=None):
