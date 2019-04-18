@@ -225,8 +225,6 @@ class PaymentController(XscroController):
 				if (paramsin_.transactionid == payment_.transactionid):
 		
 					setattrs(payment_,
-						transactionid = paramsin_.transactionid,
-						chainid = paramsin_.chainid,
 						recipient = {"walletid":paramsin_.recipientwallet, "displayas":paramsin_.recipientdisplay},
 						description = paramsin_.description,
 						amount = float(paramsin_.amount),
@@ -236,7 +234,9 @@ class PaymentController(XscroController):
 	
 				else:
 
-					payment_ = extdict({"transactionid":paramsin_.transactionid, "chainid":paramsin_.chainid,
+					transactionid_ = paramsin_.default("transactionid", self.uniqueId)
+
+					payment_ = extdict({"transactionid":transactionid_, "chainid":paramsin_.chainid,
 						"recipient":{"walletid":paramsin_.recipientwallet, "displayas":paramsin_.recipientdisplay},
 						"sender":{"walletid":paramsin_.default("sender", "")},
 						"description":paramsin_.description,
@@ -247,7 +247,9 @@ class PaymentController(XscroController):
 
 			else:
 			
-				payment_ = extdict({"transactionid":paramsin_.transactionid, "chainid":paramsin_.chainid,
+				transactionid_ = paramsin_.default("transactionid", self.uniqueId)
+				
+				payment_ = extdict({"transactionid":transactionid_, "chainid":paramsin_.chainid,
 					"recipient":{"walletid":paramsin_.recipientwallet, "displayas":paramsin_.recipientdisplay},
 					"sender":{"walletid":paramsin_.default("sender", "")},
 					"description":paramsin_.description,
