@@ -95,7 +95,7 @@ class PaymentController(XscroController):
 				senderwallet_ = payment_.sender.walletid
 				success_, response_ = XscroController.ackTransaction(self, chainid_, senderwallet_, paymenttoken_, 0)
 		
-			self.session.payment = None			
+			self.session.payment = None
 			redirecttocancel_ = callbackroot_.cancel
 			
 			if (redirecttocancel_ != None):
@@ -151,6 +151,7 @@ class PaymentController(XscroController):
 			self.session.payment = None
 	
 		if (payment_ != None):
+			
 			callbackroot_ = payment_.callbacks
 			
 			if (callbackroot_ != None) and (payment_.ack == 1):
@@ -218,7 +219,7 @@ class PaymentController(XscroController):
 			
 			payment_ = None
 			
-			if (self.session.payment != None):
+			if (self.session.payment != None) and (self.session.payment.page != "finish"):
 				
 				payment_ = self.session.payment
 		
@@ -263,9 +264,7 @@ class PaymentController(XscroController):
 					"callbacks":{"success":paramsin_.callbacksuccess, "fail":paramsin_.callbackfailure, "cancel":paramsin_.callbackcancel},
 					"pagename":"default"
 					})
-			
-			self.log(payment_)
-			
+						
 			self.session.payment = payment_
 
 		return self.payPage(postData, appVars)
