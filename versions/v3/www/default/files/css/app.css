@@ -90,6 +90,7 @@ span.highlight {
 	background-color: #f8f8f8;
 	margin-bottom: 10px;
 	vertical-align: top;
+	line-height: 20px;
 }
 
 span.highlight > pre {
