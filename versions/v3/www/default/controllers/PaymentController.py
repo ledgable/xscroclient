@@ -219,7 +219,7 @@ class PaymentController(XscroController):
 			
 			payment_ = None
 			
-			if (self.session.payment != None) and (self.session.payment.page != "finish"):
+			if (self.session.payment != None) and (self.session.payment.page != "completed"):
 				
 				payment_ = self.session.payment
 		
@@ -293,6 +293,9 @@ class PaymentController(XscroController):
 		else:
 			if (self.session.payment != None):
 				payment_ = self.session.payment
+				
+				if (self.session.payment.page == "finish"):
+					self.session.payment.page = "completed"
 
 		if (payment_ == None):
 			return FunctionResponse(HTTP_PAGE_DOES_NOT_EXIST, None, None)
