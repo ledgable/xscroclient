@@ -294,9 +294,6 @@ class PaymentController(XscroController):
 			if (self.session.payment != None):
 				payment_ = self.session.payment
 				
-				if (self.session.payment.page == "finish"):
-					self.session.payment.page = "completed"
-
 		if (payment_ == None):
 			return FunctionResponse(HTTP_PAGE_DOES_NOT_EXIST, None, None)
 		
@@ -304,6 +301,9 @@ class PaymentController(XscroController):
 
 		if (payment_.page != None):
 			pagename_ = payment_.page
+
+		if (self.session.payment.page == "finish"):
+			self.session.payment.page = "completed"
 
 		callbackroot_ = payment_.callbacks
 
